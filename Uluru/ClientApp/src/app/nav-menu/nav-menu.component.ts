@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  isExpanded = false;
+    isExpanded = false;
+    isAuthenticated = false;
 
   collapse() {
     this.isExpanded = false;
@@ -14,5 +15,12 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+    }
+
+  onClick() {
+      let baseUrl = document.getElementsByTagName('base')[0].href;
+      fetch(baseUrl + 'api/users')
+        .then(result => console.log(JSON.stringify(result)));
+      this.isAuthenticated = true;
   }
 }
