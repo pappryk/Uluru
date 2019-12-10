@@ -10,6 +10,8 @@ using Uluru.DataBaseContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Uluru.Data.Users;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System;
 
 namespace Uluru
 {
@@ -38,6 +40,12 @@ namespace Uluru
             
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("localhost")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(Options => {
+                //Options.LoginPath = "/login";
+                Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+            });
 
             services.AddScoped<IUsersRepository, UsersRepository>();
         }

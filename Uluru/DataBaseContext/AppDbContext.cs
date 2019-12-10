@@ -13,12 +13,11 @@ namespace Uluru.DataBaseContext
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder model)
         {
-            model.Entity<User>().ToTable("User");
+            model.Entity<User>().ToTable("User").HasAlternateKey(u => u.Email);
         }
     }
 }

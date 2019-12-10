@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,26 +20,29 @@ namespace Uluru.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        //private readonly AppDbContext _context;
         private readonly IUsersRepository _usersRepository;
 
         public UsersController(AppDbContext context, IUsersRepository usersRepository)
         {
-            _context = context;
+            //_context = context;
             _usersRepository = usersRepository;
         }
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<UserGeneralDTO>>> GetUsers()
         {
-            var result = await _usersRepository.GetAllAsync();
-            return new ActionResult<IEnumerable<User>>(result);
+            var users = await _usersRepository.GetAllAsync();
+            var result = users.Select(u => new UserGeneralDTO(u));
+
+            return new ActionResult<IEnumerable<UserGeneralDTO>>(result);
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserGeneralDTO>> GetUser(int id)
         {
             var user = await _usersRepository.GetById(id);
 
@@ -43,8 +50,10 @@ namespace Uluru.Controllers
             {
                 return NotFound();
             }
+            
+            var result = new UserGeneralDTO(user);
 
-            return user;
+            return result;
         }
 
         // PUT: api/Users/5
@@ -53,28 +62,28 @@ namespace Uluru.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != user.Id)
+            //{
+            //    return BadRequest();
+            //}
 
-            _context.Entry(user).State = EntityState.Modified;
+            //_context.Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_usersRepository.UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!_usersRepository.UserExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -97,15 +106,55 @@ namespace Uluru.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> RemoveUser(int id)
+        public async Task<ActionResult<UserGeneralDTO>> RemoveUser(int id)
         {
             var user = await _usersRepository.Remove(id);
+
             if (user == null)
             {
                 return NotFound();
             }
 
-            return user;
+            var result = new UserGeneralDTO(user);
+
+            return result;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> AuthenticateUser(UserAuthenticationDTO userDto)
+        {
+            bool isAuthenticated = await _usersRepository.Authenticate(userDto);
+            if (!isAuthenticated)
+                return BadRequest("Wrong credentials");
+
+            var user = _usersRepository.GetByEmail(userDto.Email);
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, user.FirstName),
+                new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProps = new AuthenticationProperties()
+            {
+
+            };
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProps);
+
+            return Ok();
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("", "");
         }
     }
 }

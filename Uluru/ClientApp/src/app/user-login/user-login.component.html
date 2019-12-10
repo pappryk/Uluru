@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <form id="registerForm">
+    <input type="text" placeholder="E-mail" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" />
+    <input type="button" value="Login" (click)="onClick()" />
+  </form>
+</body>
+</html>

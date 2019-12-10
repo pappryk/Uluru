@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
+import { UserLogin } from './user-login/user-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     FetchDataComponent,
-    RegistrationPageComponent
+    RegistrationPageComponent,
+    UserLogin,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

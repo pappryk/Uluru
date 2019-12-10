@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Uluru.Data.Users.DTOs;
 using Uluru.DataBaseContext;
 using Uluru.Models;
 
@@ -33,7 +34,8 @@ namespace Uluru.Data.Users
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+            return users;
         }
 
         public async Task<User> GetById(int id)
@@ -65,6 +67,23 @@ namespace Uluru.Data.Users
         public bool UserWithEmailExists(string email)
         {
             return _context.Users.Any(u => u.Email == email);
+        }
+
+        public async Task<bool> Authenticate(UserAuthenticationDTO userDto)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userDto.Email);
+
+            if (user == null)
+                return false;
+            if (user.PasswordHash != userDto.Password)
+                return false;
+
+            return true;
+        }
+
+        public User GetByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(u => u.Email == email);
         }
     }
 }

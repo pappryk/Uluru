@@ -1,40 +1,47 @@
 import { Component, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { IUser } from '../user/User';
+import { IUserService, UserService } from '../user/user.service';
 
 @Component({
   selector: 'registration-page',
-  templateUrl: './registration-page.component.html'
+  templateUrl: './registration-page.component.html',
 })
 export class RegistrationPageComponent {
-    constructor() {}
-    onClick(form) {
+    public firstName: string;
+    public lastName: string;
+    public password: string;
+    public email: string;
+
+    constructor(private http: HttpClient, private userService: UserService) {}
+    onClick(): void {
         let baseUrl = document.getElementsByTagName('base')[0].href;
-        let myForm = document.getElementById('registerForm');
-        let data = this.elementToJSON(myForm);
-        console.log(data);
+        let url = baseUrl + 'api/users';
 
-        fetch(baseUrl + 'api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: data
-        }).then(response =>
-            console.log(response.ok));
-    }
-
-    elementToJSON(element) {
-        var obj = {};
-        var elements = element.querySelectorAll("input");
-        for (var i = 0; i < elements.length; ++i) {
-            var element = elements[i];
-            var name = element.name;
-            var value = element.value;
-
-            if (name) {
-                obj[name] = value;
-            }
+        let user: IUser = {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            password: this.password,
+            email: this.email,
         }
 
-        return JSON.stringify(obj);
+        let response: Observable<IUser> = this.userService.postUser(url, user);
+        response.subscribe(r => {/* if (r.status == 409) console.log("409"); */});
+        response.pipe(this.handleError);
     }
+
+
+    //private handleError<T>(operation: string, result?: T): Observable<T> {
+    //    return (error: any): Observable<T> => {
+    //        alert("Failed at " + operation);
+    //        return new Observable<T>();
+    //    }
+    //}
+    private handleError(error: any) {
+        if (error.status == 409) console.log("409");
+      console.error(error);
+      return throwError(error);
+  }
 }

@@ -32,7 +32,6 @@ namespace Uluru.Models
 
         public User(UserRegistrationDTO dto)
         {
-            Id = dto.Id;
             Email = dto.Email;
             PasswordHash = dto.Password;
             FirstName = dto.FirstName;

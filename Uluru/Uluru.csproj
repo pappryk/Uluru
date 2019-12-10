@@ -40,10 +40,15 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\registration-page\registration-page.component.ts" />
+    <None Remove="ClientApp\src\app\user-login\user-login.component.ts" />
+    <None Remove="ClientApp\src\app\user\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\registration-page\registration-page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user-login\user-login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\user.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

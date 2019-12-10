@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IUser } from '../user/User';
 
 @Component({
   selector: 'app-fetch-data',
@@ -25,10 +26,4 @@ interface WeatherForecast {
   temperatureC: number;
   temperatureF: number;
   summary: string;
-}
-
-interface IUser {
-    username: string;
-    email: string;
-    passwordHash: string;
 }
