@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -9,9 +11,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Uluru.Data.Users;
 using Uluru.Data.Users.DTOs;
 using Uluru.DataBaseContext;
+using Uluru.Helpers;
 using Uluru.Models;
 
 namespace Uluru.Controllers
@@ -21,12 +26,18 @@ namespace Uluru.Controllers
     public class UsersController : ControllerBase
     {
         //private readonly AppDbContext _context;
-        private readonly IUsersRepository _usersRepository;
+        private readonly IUserRepository _usersRepository;
+        private readonly AppSettings _appSettings;
 
-        public UsersController(AppDbContext context, IUsersRepository usersRepository)
+        public UsersController(
+            AppDbContext context,
+            IUserRepository usersRepository,
+            IOptions<AppSettings> appSettings)
         {
             //_context = context;
+            //context.Database.EnsureCreated();
             _usersRepository = usersRepository;
+            _appSettings = appSettings.Value;
         }
 
         // GET: api/Users
@@ -120,7 +131,7 @@ namespace Uluru.Controllers
             return result;
         }
 
-        [HttpPost("login")]
+        [HttpPost("authenticate")]
         public async Task<IActionResult> AuthenticateUser(UserAuthenticationDTO userDto)
         {
             bool isAuthenticated = await _usersRepository.Authenticate(userDto);
@@ -129,24 +140,27 @@ namespace Uluru.Controllers
 
             var user = _usersRepository.GetByEmail(userDto.Email);
 
-            var claims = new List<Claim>()
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                new Claim(ClaimTypes.Name, user.FirstName),
-                new Claim(ClaimTypes.Surname, user.LastName),
-                new Claim(ClaimTypes.Email, user.Email)
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var authProps = new AuthenticationProperties()
+            return Ok(new
             {
-
-            };
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProps);
-
-            return Ok();
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Token = tokenString
+            });
         }
 
         [HttpPost("logout")]
