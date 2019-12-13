@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,9 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using Uluru.DataBaseContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
-using Uluru.Data.Users;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Uluru.Data.Users;
+using Uluru.Helpers;
+using System.Threading.Tasks;
 
 namespace Uluru
 {
@@ -23,15 +28,28 @@ namespace Uluru
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(Options => {
+                //Options.LoginPath = "/login";
+                Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+            });
+            services.AddAuthorization(
+            
+            );
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -41,13 +59,7 @@ namespace Uluru
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("localhost")));
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(Options => {
-                //Options.LoginPath = "/login";
-                Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-            });
-
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,13 +83,21 @@ namespace Uluru
                 app.UseSpaStaticFiles();
             }
 
+            app.UseCors(x => x
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+
             app.UseRouting();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}"); //TODO: change to endpoints.MapControllers()
             });
 
             app.UseSpa(spa =>

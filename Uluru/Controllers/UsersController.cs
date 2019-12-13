@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -9,9 +11,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Uluru.Data.Users;
 using Uluru.Data.Users.DTOs;
 using Uluru.DataBaseContext;
+using Uluru.Helpers;
 using Uluru.Models;
 
 namespace Uluru.Controllers
@@ -21,12 +26,17 @@ namespace Uluru.Controllers
     public class UsersController : ControllerBase
     {
         //private readonly AppDbContext _context;
-        private readonly IUsersRepository _usersRepository;
+        private readonly IUserRepository _usersRepository;
+        private readonly AppSettings _appSettings;
 
-        public UsersController(AppDbContext context, IUsersRepository usersRepository)
+        public UsersController(
+            AppDbContext context,
+            IUserRepository usersRepository,
+            IOptions<AppSettings> appSettings)
         {
-            //_context = context;
+            //context.Database.EnsureCreated();
             _usersRepository = usersRepository;
+            _appSettings = appSettings.Value;
         }
 
         // GET: api/Users
@@ -120,41 +130,45 @@ namespace Uluru.Controllers
             return result;
         }
 
-        [HttpPost("login")]
+        [HttpPost("authenticate")]
         public async Task<IActionResult> AuthenticateUser(UserAuthenticationDTO userDto)
         {
             bool isAuthenticated = await _usersRepository.Authenticate(userDto);
             if (!isAuthenticated)
                 return BadRequest("Wrong credentials");
 
-            var user = _usersRepository.GetByEmail(userDto.Email);
+            var user = await _usersRepository.GetByEmail(userDto.Email);
 
             var claims = new List<Claim>()
             {
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName),
-                new Claim(ClaimTypes.Email, user.Email)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProps = new AuthenticationProperties()
             {
-
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProps);
 
+            Response.Cookies.Append("Email", user.Email);
+            Response.Cookies.Append("Id", user.Id.ToString());
+
+
+            //HttpContext.SignInAsync()
             return Ok();
         }
 
-        [HttpPost("logout")]
+        [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("", "");
+            return Ok();
         }
     }
 }

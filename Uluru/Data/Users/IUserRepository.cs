@@ -7,11 +7,11 @@ using Uluru.Models;
 
 namespace Uluru.Data.Users
 {
-    public interface IUsersRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
         bool UserExists(int id);
         bool UserWithEmailExists(string email);
         Task<bool> Authenticate(UserAuthenticationDTO userDto);
-        User GetByEmail(string email);
+        Task<User> GetByEmail(string email);
     }
 }

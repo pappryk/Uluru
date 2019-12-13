@@ -23,15 +23,15 @@ export class UserService implements IUserService {
         return this.http.get<IUser[]>(url);
     }
 
-    public authenticateUser(email: string, password: string) : boolean {
-        let user = {
-            email: email,
-            password: password
-        }
+    public async authenticateUser(email: string, password: string) : Promise<any> {
+      let user = {
+          email: email,
+          password: password
+      }
 
-        let url: string = document.getElementsByTagName('base')[0].href + 'api/users';
-        //fetch()
-        return true;
+      let url: string = document.getElementsByTagName('base')[0].href + 'api/users/authenticate';
+      let response = await this.http.post(url, user, { observe: 'response' });
+      return response.toPromise();
     }
 }
 
