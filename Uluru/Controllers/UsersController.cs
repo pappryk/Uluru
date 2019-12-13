@@ -34,7 +34,6 @@ namespace Uluru.Controllers
             IUserRepository usersRepository,
             IOptions<AppSettings> appSettings)
         {
-            //_context = context;
             //context.Database.EnsureCreated();
             _usersRepository = usersRepository;
             _appSettings = appSettings.Value;
@@ -138,7 +137,7 @@ namespace Uluru.Controllers
             if (!isAuthenticated)
                 return BadRequest("Wrong credentials");
 
-            var user = _usersRepository.GetByEmail(userDto.Email);
+            var user = await _usersRepository.GetByEmail(userDto.Email);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);
@@ -154,9 +153,11 @@ namespace Uluru.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
+            //HttpContext.SignInAsync()
             return Ok(new
             {
                 Id = user.Id,
+                Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = tokenString

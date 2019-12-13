@@ -75,6 +75,8 @@ namespace Uluru
                     ValidateAudience = false
                 };
             });
+            //services.AddAuthorization(options =>
+            //);
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

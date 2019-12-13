@@ -44,6 +44,7 @@
     <None Remove="ClientApp\src\app\registration-page\registration-page.component.ts" />
     <None Remove="ClientApp\src\app\user-login\user-login.component.ts" />
     <None Remove="ClientApp\src\app\user\user.service.ts" />
+    <None Remove="ClientApp\src\helpers\cookie.helper.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +52,11 @@
     <TypeScriptCompile Include="ClientApp\src\app\user-login\user-login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\user.ts" />
+    <TypeScriptCompile Include="ClientApp\src\helpers\cookie.helper.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\api-authorization\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -80,5 +86,21 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES2015</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>ES6</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
 
 </Project>

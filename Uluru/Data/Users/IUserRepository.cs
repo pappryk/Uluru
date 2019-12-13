@@ -12,6 +12,6 @@ namespace Uluru.Data.Users
         bool UserExists(int id);
         bool UserWithEmailExists(string email);
         Task<bool> Authenticate(UserAuthenticationDTO userDto);
-        User GetByEmail(string email);
+        Task<User> GetByEmail(string email);
     }
 }

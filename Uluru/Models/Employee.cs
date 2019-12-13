@@ -16,6 +16,9 @@ namespace Uluru.Models
         public int TotalAnnualLeave { get; set; }
         [Required]
         public int RemainingAnnualLeave { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
+        public int WorkingGroupId { get; set; }
+        public WorkingGroup WorkingGroup { get; set; }
     }
 }
