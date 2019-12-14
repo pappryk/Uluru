@@ -18,6 +18,16 @@ namespace Uluru.DataBaseContext
         protected override void OnModelCreating(ModelBuilder model)
         {
             model.Entity<User>().ToTable("User").HasAlternateKey(u => u.Email);
+            model.Entity<WorkingGroup>().ToTable("WorkingGroup");
+            model.Entity<WorkingGroupSchedule>().ToTable("WorkingGroupSchedule");
+            model.Entity<WorkingDay>().ToTable("WorkingDay");
+            model.Entity<WorkEntry>().ToTable("WorkEntry");
+
+            model.Entity<WorkingGroup>().HasMany(w => w.Users).WithOne(u => u.WorkingGroup);
+            model.Entity<WorkingGroupSchedule>().HasOne(w => w.WorkingGroup).WithMany(w => w.WorkingGroupSchedules);
+            model.Entity<WorkingGroupSchedule>().HasMany(w => w.WorkingDays).WithOne(w => w.WorkingGroupSchedule);
+            model.Entity<WorkingDay>().HasMany(w => w.WorkEntries).WithOne(w => w.WorkingDay);
+            model.Entity<WorkEntry>().HasOne(w => w.User).WithMany(u => u.WorkEntries);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,11 @@ namespace Uluru.Models
 {
     public class WorkingGroup
     {
+        [Key]
         public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public List<User> Users { get; set; }
+        public List<WorkingGroupSchedule> WorkingGroupSchedules { get; set; }
     }
 }
