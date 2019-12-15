@@ -38,6 +38,14 @@ namespace Uluru.Data.Users
             return users;
         }
 
+        public async Task<IEnumerable<User>> GetAllUsersOfGroupAsync(int groupId)
+        {
+            var users = await _context.Users
+                .Where(u => u.WorkingGroupId == groupId)
+                .ToListAsync();
+            return users;
+        }
+
         public async Task<User> GetById(int id)
         {
             var user = await _context.Users.FindAsync(id);

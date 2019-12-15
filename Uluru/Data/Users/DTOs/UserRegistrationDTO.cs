@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Uluru.Models;
 
 namespace Uluru.Data.Users.DTOs
 {
@@ -11,5 +12,8 @@ namespace Uluru.Data.Users.DTOs
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public decimal HourlyWage { get; set; }
+        public UserRole UserRole { get; set; }
+        public int WorkingGroupId { get; set; }
     }
 }

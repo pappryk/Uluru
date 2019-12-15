@@ -10,7 +10,7 @@ using Uluru.DataBaseContext;
 namespace Uluru.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191214160012_CreateDataBaseStructure")]
+    [Migration("20191214191055_CreateDataBaseStructure")]
     partial class CreateDataBaseStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

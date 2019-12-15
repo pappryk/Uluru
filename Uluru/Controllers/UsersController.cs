@@ -50,6 +50,15 @@ namespace Uluru.Controllers
             return new ActionResult<IEnumerable<UserGeneralDTO>>(result);
         }
 
+        [HttpGet("group/{id}")]
+        public async Task<ActionResult<IEnumerable<UserGeneralDTO>>> GetUsersOfGroup([FromRoute]int id)
+        {
+            var users = await _usersRepository.GetAllUsersOfGroupAsync(id);
+            var result = users.Select(u => new UserGeneralDTO(u));
+
+            return new ActionResult<IEnumerable<UserGeneralDTO>>(result);
+        }
+
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGeneralDTO>> GetUser(int id)
@@ -104,12 +113,20 @@ namespace Uluru.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(UserRegistrationDTO dto)
         {
+            dto.UserRole = UserRole.User;
             User user = new User(dto);
 
             if (_usersRepository.UserWithEmailExists(user.Email))
                 return Conflict();
-            else
+
+            try
+            {
                 await _usersRepository.Add(user);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }

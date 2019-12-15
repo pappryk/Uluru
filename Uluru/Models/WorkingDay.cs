@@ -10,6 +10,7 @@ namespace Uluru.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public DateTime Date { get; set; }
         public int WorkingGroupScheduleId { get; set; }
         public WorkingGroupSchedule WorkingGroupSchedule { get; set; }

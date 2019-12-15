@@ -12,6 +12,7 @@ namespace Uluru.Data.Users.DTOs
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public decimal HourlyWage { get; set; }
 
         public UserGeneralDTO(User user)
         {
