@@ -9,7 +9,6 @@ namespace Uluru.Data.Users
 {
     public interface IUserRepository : IRepository<User>
     {
-        bool UserExists(int id);
         bool UserWithEmailExists(string email);
         Task<bool> Authenticate(UserAuthenticationDTO userDto);
         Task<User> GetByEmail(string email);

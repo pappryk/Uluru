@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Uluru.Migrations
 {
-    public partial class CreateDataBaseStructure : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +31,7 @@ namespace Uluru.Migrations
                     FirstName = table.Column<string>(maxLength: 64, nullable: false),
                     LastName = table.Column<string>(maxLength: 64, nullable: false),
                     HourlyWage = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    UserRole = table.Column<string>(nullable: false),
                     WorkingGroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -62,6 +63,27 @@ namespace Uluru.Migrations
                         name: "FK_WorkingGroupSchedule_WorkingGroup_WorkingGroupId",
                         column: x => x.WorkingGroupId,
                         principalTable: "WorkingGroup",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkingAvailability",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    Start = table.Column<DateTime>(nullable: false),
+                    End = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkingAvailability", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkingAvailability_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -130,6 +152,11 @@ namespace Uluru.Migrations
                 column: "WorkingDayId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_WorkingAvailability_UserId",
+                table: "WorkingAvailability",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkingDay_WorkingGroupScheduleId",
                 table: "WorkingDay",
                 column: "WorkingGroupScheduleId");
@@ -146,10 +173,13 @@ namespace Uluru.Migrations
                 name: "WorkEntry");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "WorkingAvailability");
 
             migrationBuilder.DropTable(
                 name: "WorkingDay");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "WorkingGroupSchedule");

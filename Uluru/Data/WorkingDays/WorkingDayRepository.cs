@@ -12,6 +12,11 @@ namespace Uluru.Data.WorkingDays
             throw new NotImplementedException();
         }
 
+        public bool Exists(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<WorkingDayRepository>> GetAllAsync()
         {
             throw new NotImplementedException();

@@ -10,8 +10,8 @@ using Uluru.DataBaseContext;
 namespace Uluru.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191214191055_CreateDataBaseStructure")]
-    partial class CreateDataBaseStructure
+    [Migration("20191215083245_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,10 @@ namespace Uluru.Migrations
                         .HasMaxLength(64);
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserRole")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -87,6 +91,29 @@ namespace Uluru.Migrations
                     b.HasIndex("WorkingDayId");
 
                     b.ToTable("WorkEntry");
+                });
+
+            modelBuilder.Entity("Uluru.Models.WorkingAvailability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkingAvailability");
                 });
 
             modelBuilder.Entity("Uluru.Models.WorkingDay", b =>
@@ -166,6 +193,15 @@ namespace Uluru.Migrations
                     b.HasOne("Uluru.Models.WorkingDay", "WorkingDay")
                         .WithMany("WorkEntries")
                         .HasForeignKey("WorkingDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Uluru.Models.WorkingAvailability", b =>
+                {
+                    b.HasOne("Uluru.Models.User", "User")
+                        .WithMany("WorkingAvailabilities")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -42,26 +42,26 @@ namespace Uluru.Controllers
         // GET: api/Users
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<UserGeneralDTO>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDetailDTO>>> GetUsers()
         {
             var users = await _usersRepository.GetAllAsync();
-            var result = users.Select(u => new UserGeneralDTO(u));
+            var result = users.Select(u => new UserDetailDTO(u));
 
-            return new ActionResult<IEnumerable<UserGeneralDTO>>(result);
+            return new ActionResult<IEnumerable<UserDetailDTO>>(result);
         }
 
         [HttpGet("group/{id}")]
-        public async Task<ActionResult<IEnumerable<UserGeneralDTO>>> GetUsersOfGroup([FromRoute]int id)
+        public async Task<ActionResult<IEnumerable<UserDetailDTO>>> GetUsersOfGroup([FromRoute]int id)
         {
             var users = await _usersRepository.GetAllUsersOfGroupAsync(id);
-            var result = users.Select(u => new UserGeneralDTO(u));
+            var result = users.Select(u => new UserDetailDTO(u));
 
-            return new ActionResult<IEnumerable<UserGeneralDTO>>(result);
+            return new ActionResult<IEnumerable<UserDetailDTO>>(result);
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserGeneralDTO>> GetUser(int id)
+        public async Task<ActionResult<UserDetailDTO>> GetUser(int id)
         {
             var user = await _usersRepository.GetById(id);
 
@@ -70,7 +70,7 @@ namespace Uluru.Controllers
                 return NotFound();
             }
             
-            var result = new UserGeneralDTO(user);
+            var result = new UserDetailDTO(user);
 
             return result;
         }
@@ -128,12 +128,12 @@ namespace Uluru.Controllers
                 return Problem(e.Message);
             }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("PostUser", new { id = user.Id }, user);
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserGeneralDTO>> RemoveUser(int id)
+        public async Task<ActionResult<UserDetailDTO>> RemoveUser(int id)
         {
             var user = await _usersRepository.Remove(id);
 
@@ -142,7 +142,7 @@ namespace Uluru.Controllers
                 return NotFound();
             }
 
-            var result = new UserGeneralDTO(user);
+            var result = new UserDetailDTO(user);
 
             return result;
         }

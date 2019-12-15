@@ -17,13 +17,19 @@ namespace Uluru.Data.WorkingGroups
         }
         public async Task Add(WorkingGroup toAdd)
         {
-            _context.WorkingGroup.Add(toAdd);
+            _context.WorkingGroups.Add(toAdd);
             await _context.SaveChangesAsync();
+        }
+
+        public bool Exists(int id)
+        {
+            var result = _context.WorkingGroups.FirstOrDefault(w => w.Id == id);
+            return result != null ? true : false;
         }
 
         public async Task<IEnumerable<WorkingGroup>> GetAllAsync()
         {
-             var workingGroups = await _context.WorkingGroup
+             var workingGroups = await _context.WorkingGroups
                 .Include(w => w.WorkingGroupSchedules)
                 .Include(w => w.Users)
                 .ToListAsync();
@@ -33,7 +39,7 @@ namespace Uluru.Data.WorkingGroups
 
         public async Task<WorkingGroup> GetById(int id)
         {
-            var workingGroup = await _context.WorkingGroup
+            var workingGroup = await _context.WorkingGroups
                 .Include(w => w.WorkingGroupSchedules)
                 .Include(w => w.Users)
                 .FirstOrDefaultAsync(w => w.Id == id);

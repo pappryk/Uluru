@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "24357824-1b78-45a9-ad9f-af8957d8867e",
+		"name": "Uluru",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "CREATE new User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"Email\": \"ptrk@example.com\",\n    \"Password\": \"haslo\",\n    \"FirstName\": \"Patryk\",\n    \"LastName\": \"Nguyen\",\n    \"WorkingGroupId\": 1,\n    \"HourlyWage\": 20\n}"
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/users",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authenticate User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"Email\": \"ptrk@example.com\",\n\t\"Password\": \"haslo\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/users/authenticate",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"users",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "Get all Users (without authorization)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44382/api/users",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "WorkingGroup",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create WorkingGroup",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"Name\": \"Grupa 1\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workinggroup",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workinggroup"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -13,10 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Uluru.Data.Users;
-using Uluru.Data.Users.DTOs;
 using Uluru.Data.WorkingGroups;
+using Uluru.Data.WorkingGroupSchedules;
 using Uluru.DataBaseContext;
 using Uluru.Helpers;
 using Uluru.Models;
@@ -26,39 +23,39 @@ namespace Uluru.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize]
-    public class WorkingGroupController : ControllerBase
+    public class WorkingGroupScheduleController : ControllerBase
     {
-        private readonly IWorkingGroupRepository _workingGroupRepository;
+        private readonly IWorkingGroupScheduleRepository _workingGroupScheduleRepository;
         private readonly ILogger<WorkingGroupController> _logger;
-        public WorkingGroupController(
+        public WorkingGroupScheduleController(
             ILogger<WorkingGroupController> logger,
-            IWorkingGroupRepository workingGroupRepository)
+            IWorkingGroupScheduleRepository workingGroupScheduleRepository)
         {
-            _workingGroupRepository = workingGroupRepository;
+            _workingGroupScheduleRepository = workingGroupScheduleRepository;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            var workingGroups = await _workingGroupRepository.GetAllAsync();
+            var workingGroups = await _workingGroupScheduleRepository.GetAllAsync();
             return new JsonResult(workingGroups);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
-            var workingGroup = await _workingGroupRepository.GetById(id);
+            var workingGroup = await _workingGroupScheduleRepository.GetById(id);
             return new JsonResult(workingGroup);
         }
 
         //[Authorize("SomeRoleOrPolicyForAdmins <admins>)"]
         [HttpPost]
-        public async Task<ActionResult> PostWorkingGroup([FromBody] WorkingGroup workingGroup)
+        public async Task<ActionResult> PostWorkingGroupSchedule([FromBody] WorkingGroupSchedule workingGroupSchedule)
         {
             try
             {
-                await _workingGroupRepository.Add(workingGroup);
+                await _workingGroupScheduleRepository.Add(workingGroupSchedule);
             }
             catch (DbUpdateConcurrencyException e)
             {
@@ -76,7 +73,7 @@ namespace Uluru.Controllers
                 return Problem(e.Message);
             }
 
-            return CreatedAtAction("PostWorkingGroup", new { workingGroup.Id, workingGroup });
+            return CreatedAtAction("PostWorkingScheduleGroup", new { workingGroupSchedule.Id, workingGroupSchedule });
         }
     }
 }

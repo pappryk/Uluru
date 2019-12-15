@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Uluru.Data.WorkingDays
 {
-    interface IWorkingDayRepository : IRepository<WorkingDayRepository>
+    public interface IWorkingDayRepository : IRepository<WorkingDayRepository>
     {
     }
 }

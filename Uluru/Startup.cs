@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Uluru.Data.Users;
 using Uluru.Helpers;
 using Uluru.Data.WorkingGroups;
+using Uluru.Data.WorkingAvailabilities;
+using Uluru.Data.WorkingDays;
+using Uluru.Data.WorkingGroupSchedules;
 
 namespace Uluru
 {
@@ -60,9 +63,12 @@ namespace Uluru
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("localhost")));
 
-            // Register DI services
+            // Register custom DI services
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWorkingGroupRepository, WorkingGroupRepository>();
+            services.AddScoped<IWorkingGroupScheduleRepository, WorkingGroupScheduleRepository>();
+            services.AddScoped<IWorkingAvailabilityRepository, WorkingAvailabilityRepository>();
+            services.AddScoped<IWorkingDayRepository, WorkingDayRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
