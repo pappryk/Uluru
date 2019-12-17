@@ -24,19 +24,21 @@ namespace Uluru.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
-        {
-            var workingAvailabilities = await _workingAvailabilityRepository.GetAllAsync();
-            return new JsonResult(workingAvailabilities);
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
             var workingAvailability = await _workingAvailabilityRepository.GetById(id);
             return new JsonResult(workingAvailability);
         }
+        
+        [HttpGet]
+        public async Task<ActionResult> GetByUserId([FromQuery]int userId)
+        {
+            var workingAvailability = await _workingAvailabilityRepository.GetAllOfUserAsync(userId);
+            return new JsonResult(workingAvailability);
+        }
+
+        
 
         //[Authorize("SomeRoleOrPolicyForAdmins <admins>")]
         [HttpPost]

@@ -9,6 +9,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 import { UserLogin } from './user-login/user-login.component';
+import { UserAvailabilityComponent } from './user-availability/user-availability.component';
+import { UserAvailabilityListComponent } from './user-availability-list/user-availability-list.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { UserLogin } from './user-login/user-login.component';
     FetchDataComponent,
     RegistrationPageComponent,
     UserLogin,
+    UserAvailabilityComponent,
+    UserAvailabilityListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
