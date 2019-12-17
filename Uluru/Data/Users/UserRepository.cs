@@ -25,7 +25,7 @@ namespace Uluru.Data.Users
             }
             catch (DbUpdateException)
             {
-                if (!this.UserExists(user.Id))
+                if (!this.Exists(user.Id))
                 {
                     throw;
                 }
@@ -35,6 +35,14 @@ namespace Uluru.Data.Users
         public async Task<IEnumerable<User>> GetAllAsync()
         {
             var users = await _context.Users.ToListAsync();
+            return users;
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsersOfGroupAsync(int groupId)
+        {
+            var users = await _context.Users
+                .Where(u => u.WorkingGroupId == groupId)
+                .ToListAsync();
             return users;
         }
 
@@ -59,7 +67,7 @@ namespace Uluru.Data.Users
             throw new NotImplementedException();
         }
 
-        public bool UserExists(int id)
+        public bool Exists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
         }

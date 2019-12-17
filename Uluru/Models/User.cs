@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Uluru.Data.Users.DTOs;
@@ -24,7 +25,16 @@ namespace Uluru.Models
         [MinLength(1)]
         [MaxLength(64)]
         public string LastName { get; set; }
+        //[Required]
+        [Column(TypeName = "decimal(8,2)")]
+        public decimal HourlyWage { get; set; }
+        [Required]
+        public UserRole UserRole { get; set; }
+        public int WorkingGroupId { get; set; }
+        public WorkingGroup WorkingGroup { get; set; }
 
+        public List<WorkEntry> WorkEntries { get; set; }
+        public List<WorkingAvailability> WorkingAvailabilities { get; set; }
 
         public User()
         {
@@ -36,6 +46,16 @@ namespace Uluru.Models
             PasswordHash = dto.Password;
             FirstName = dto.FirstName;
             LastName = dto.LastName;
+            HourlyWage = dto.HourlyWage;
+            UserRole = dto.UserRole;
+            WorkingGroupId = dto.WorkingGroupId;
         }
+    }
+
+    public enum UserRole
+    {
+        Admin,
+        User,
+        GroupAdmin
     }
 }

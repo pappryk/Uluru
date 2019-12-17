@@ -42,6 +42,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\registration-page\registration-page.component.ts" />
+    <None Remove="ClientApp\src\app\user-availability\UserAvailability.ts" />
     <None Remove="ClientApp\src\app\user-login\user-login.component.ts" />
     <None Remove="ClientApp\src\app\user\user.service.ts" />
     <None Remove="ClientApp\src\helpers\cookie.helper.ts" />
@@ -49,6 +50,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\registration-page\registration-page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user-availability\UserAvailability.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user-login\user-login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\user.ts" />
@@ -57,6 +59,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\api-authorization\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
