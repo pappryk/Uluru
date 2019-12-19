@@ -1,1 +1,4 @@
-<p>{{availability.id}}</p>
+<div class="availability">
+<p>{{availability.start | date:"yyyy-dd-MM"}}</p>
+<p>{{availability.start | date:"HH:mm"}} - {{availability.end | date:"HH:mm"}}</p>
+</div>

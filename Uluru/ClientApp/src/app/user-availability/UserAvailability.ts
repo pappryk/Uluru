@@ -4,6 +4,6 @@ export interface IUserAvailability {
   id: number;
   userid: number;
   user: IUser;
-  start;
-  end;
+  start: Date;
+  end: Date;
 }

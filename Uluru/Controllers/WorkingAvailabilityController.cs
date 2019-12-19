@@ -34,7 +34,12 @@ namespace Uluru.Controllers
         [HttpGet]
         public async Task<ActionResult> GetByUserId([FromQuery]int userId)
         {
-            var workingAvailability = await _workingAvailabilityRepository.GetAllOfUserAsync(userId);
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            if (idClaim == null)
+                return Unauthorized();
+
+            int id = Int32.Parse(idClaim.Value.ToString());
+            var workingAvailability = await _workingAvailabilityRepository.GetAllOfUserAsync(id);
             return new JsonResult(workingAvailability);
         }
 

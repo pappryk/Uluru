@@ -1,0 +1,11 @@
+<p>group works!</p>
+<label *ngIf="!workingGroup">Loading</label>
+<div *ngIf="workingGroup">
+    <h3><b>{{workingGroup.name}}</b></h3>
+    <h5>Working schedules:</h5>
+    <div *ngFor="let schedule of workingGroup.workingGroupSchedules">
+        <app-working-group-schedule [workingGroupSchedule]="schedule"></app-working-group-schedule>
+    </div>
+</div>
+
+

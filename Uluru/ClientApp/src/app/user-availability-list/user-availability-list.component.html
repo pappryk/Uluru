@@ -1,2 +1,17 @@
-<p>user-availability-list works!</p>
- <app-user-availability [availability]='availability' *ngFor="let availability of workingAvailabilities"></app-user-availability>
+<button (click)="toggleAvailability()" *ngIf="!showAddNewAvailability">Show new availability window</button>
+<div *ngIf="showAddNewAvailability">
+  <button (click)="toggleAvailability()">Hide new availability window</button><br/>
+  <owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newDayDate" #dt1></owl-date-time-inline>
+  <div>
+    <label>Start hour</label>
+    <owl-date-time-inline [pickerType]="'timer'" [(ngModel)]="newDayStartTime" #dt2></owl-date-time-inline>
+  </div>
+  <div>
+    <label>End hour</label>
+    <owl-date-time-inline [pickerType]="'timer'" [(ngModel)]="newDayEndTime" #dt3></owl-date-time-inline>
+  </div>
+  <button (click)="postNewAvailability()">Add new availability</button>
+</div>
+<br />
+<h4><b>Your availability</b></h4>
+<app-user-availability [availability]='availability' *ngFor="let availability of workingAvailabilities"></app-user-availability>

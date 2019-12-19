@@ -1,0 +1,8 @@
+<div class="border-bottom-grey">
+  <p>{{workingGroupSchedule.start | date: "dd.MM.yyyy"}} - {{workingGroupSchedule.end | date: "dd.MM.yyyy"}}</p>
+  <button (click)="showComponent()" *ngIf="!isVisible">Show</button>
+  <button (click)="hideComponent()" *ngIf="isVisible">Hide</button>
+  <div *ngIf="isVisible">
+
+  </div>
+</div>

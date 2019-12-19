@@ -35,26 +35,36 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\NewFolder1\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\NewFolder1\**" />
+    <EmbeddedResource Remove="ClientApp\src\NewFolder1\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\NewFolder1\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\group\workingGroup.ts" />
     <None Remove="ClientApp\src\app\registration-page\registration-page.component.ts" />
     <None Remove="ClientApp\src\app\user-availability\UserAvailability.ts" />
     <None Remove="ClientApp\src\app\user-login\user-login.component.ts" />
     <None Remove="ClientApp\src\app\user\user.service.ts" />
     <None Remove="ClientApp\src\helpers\cookie.helper.ts" />
+    <None Remove="ClientApp\src\models\workingDay.ts" />
+    <None Remove="ClientApp\src\models\WorkingGroupSchedule.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\models\workingDay.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\workingGroup.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\registration-page\registration-page.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user-availability\UserAvailability.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user-login\user-login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\user.ts" />
     <TypeScriptCompile Include="ClientApp\src\helpers\cookie.helper.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\WorkingGroupSchedule.ts" />
   </ItemGroup>
 
   <ItemGroup>

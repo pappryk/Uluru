@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Uluru</a>
+      <a class="navbar-brand" [routerLink]="['/']">Home</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,21 +20,14 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
-          <!--<li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/availability']">
+              Your availability
+            </a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
-          </li>-->
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']">
-              Fetch data
+            <a class="nav-link text-dark" [routerLink]="['/group']">
+              Your group
             </a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
@@ -43,12 +36,12 @@
             </a>
           </li>
           <!--<li *ngIf="!isAuthenticated">
-            <form>
-              <input type="text" name="username" />
-              <input type="password" name="password" />
-              <input type="button" (click)="onClick()" value="login"/>
-            </form>
-          </li>-->
+    <form>
+      <input type="text" name="username" />
+      <input type="password" name="password" />
+      <input type="button" (click)="onClick()" value="login"/>
+    </form>
+  </li>-->
           <li>
             <user-login></user-login>
           </li>

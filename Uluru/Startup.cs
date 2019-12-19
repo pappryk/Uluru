@@ -48,8 +48,8 @@ namespace Uluru
             var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(Options => {
-                //Options.LoginPath = "/login";
-                Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                Options.LoginPath = "/login";
+                Options.ExpireTimeSpan = TimeSpan.FromDays(1);
             });
             services.AddAuthorization(
             
