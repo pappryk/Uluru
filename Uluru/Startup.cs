@@ -21,6 +21,7 @@ using Uluru.Data.WorkingGroups;
 using Uluru.Data.WorkingAvailabilities;
 using Uluru.Data.WorkingDays;
 using Uluru.Data.WorkingGroupSchedules;
+using Uluru.Data.WorkEntries;
 
 namespace Uluru
 {
@@ -69,6 +70,7 @@ namespace Uluru
             services.AddScoped<IWorkingGroupScheduleRepository, WorkingGroupScheduleRepository>();
             services.AddScoped<IWorkingAvailabilityRepository, WorkingAvailabilityRepository>();
             services.AddScoped<IWorkingDayRepository, WorkingDayRepository>();
+            services.AddScoped<IWorkEntryRepository, WorkEntryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
