@@ -20,30 +20,26 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isAuthenticated">
             <a class="nav-link text-dark" [routerLink]="['/availability']">
               Your availability
             </a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isAuthenticated">
             <a class="nav-link text-dark" [routerLink]="['/group']">
               Your group
             </a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']"*ngIf="!isAuthenticated">
             <a class="nav-link text-dark" [routerLink]="['/register']">
               Register
             </a>
           </li>
-          <!--<li *ngIf="!isAuthenticated">
-    <form>
-      <input type="text" name="username" />
-      <input type="password" name="password" />
-      <input type="button" (click)="onClick()" value="login"/>
-    </form>
-  </li>-->
           <li>
-            <user-login></user-login>
+            <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+          </li>
+          <li>
+            <user-login *ngIf="!isAuthenticated"></user-login>
           </li>
         </ul>
       </div>

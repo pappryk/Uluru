@@ -51,11 +51,13 @@
     <None Remove="ClientApp\src\app\user-login\user-login.component.ts" />
     <None Remove="ClientApp\src\app\user\user.service.ts" />
     <None Remove="ClientApp\src\helpers\cookie.helper.ts" />
+    <None Remove="ClientApp\src\helpers\datasharing.service.ts" />
     <None Remove="ClientApp\src\models\workingDay.ts" />
     <None Remove="ClientApp\src\models\WorkingGroupSchedule.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\helpers\datasharing.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\workingDay.ts" />
     <TypeScriptCompile Include="ClientApp\src\models\workingGroup.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\registration-page\registration-page.component.ts" />

@@ -163,6 +163,364 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "WorkingAvailability",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "POST WorkingAvailability",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"UserId\": 1,\n\t\"Start\": \"2019-12-15T19:01:55.714942+03:00\",\n\t\"End\": \"2019-12-15T20:01:55.714942+03:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workingavailability",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workingavailability"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "GET WorkingAvailability",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "WorkingGroupSchedule",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Add working schedule",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"Start\": \"2019-12-15T17:01:55.7149420\",\n\t\"End\": \"2019-12-15T17:01:55.7149420\",\n\t\"WorkingGroupId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workinggroupschedule",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workinggroupschedule"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "WorkEntry",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create work entry",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"WorkingDayId\": \"2\",\n\t\"Start\": \"2019-12-20T14:00+03:00\",\n\t\"End\": \"2019-12-20T20:00+03:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workentry",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workentry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create work entry Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"WorkingDayId\": \"\",\n\t\"Start\": \"2019-12-20T19:00+03:00\",\n\t\"End\": \"2019-12-20T20:00+03:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workentry",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workentry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create work entry Copy Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"WorkingDayId\": \"\",\n\t\"Start\": \"2019-12-20T19:00+03:00\",\n\t\"End\": \"2019-12-20T20:00+03:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workentry",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workentry"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "WorkingDay",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Add working day",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"Date\": \"2019-12-20T19:00+03:00\",\n\t\"WorkingGroupScheduleId\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workingday",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workingday"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add working day Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"Date\": \"2019-12-20T19:00+03:00\",\n\t\"WorkingGroupScheduleId\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workingday",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workingday"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add working day Copy Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"Date\": \"2019-12-20T19:00+03:00\",\n\t\"WorkingGroupScheduleId\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44382/api/workingday",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44382",
+									"path": [
+										"api",
+										"workingday"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

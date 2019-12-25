@@ -38,7 +38,8 @@ import { WorkingGroupScheduleComponent } from './working-group-schedule/working-
       { path: 'availability', component: UserAvailabilityListComponent },
       { path: 'register', component: RegistrationPageComponent },
       { path: 'group', component: GroupComponent },
-    ])
+      ], { onSameUrlNavigation: 'reload' }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -45,7 +45,6 @@ export class UserAvailabilityListComponent implements OnInit {
     let day = this.datePipe.transform(this.newDayDate, "yyyy-MM-dd");
     let startHour = this.datePipe.transform(this.newDayStartTime, "HH:mm");
     let endHour = this.datePipe.transform(this.newDayEndTime, "HH:mm");
-    console.log(day + "T" + startHour);
     let start = new Date(day + "T" + startHour + ":00");
     let end = new Date(day + "T" + endHour + ":00");
     let userId = this.cookieHelper.getCookie("Id");
@@ -56,10 +55,8 @@ export class UserAvailabilityListComponent implements OnInit {
       end: end
     }
 
-    console.log(data);
 
     let response = await this.http.post(this.baseUrl + 'api/workingAvailability', data, { observe: 'response' }).toPromise();
-    console.log(response.ok);
   }
 
 
