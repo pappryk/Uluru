@@ -52,6 +52,19 @@ namespace Uluru.Controllers
             return new JsonResult(workingGroup);
         }
 
+        [HttpGet("fromcredentials")]
+        public async Task<ActionResult> GetByCredentialsId()
+        {
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            if (idClaim == null)
+                return Unauthorized();
+
+            int id = Int32.Parse(idClaim.Value.ToString());
+
+            var workingGroup = await _workingGroupRepository.GetById(id);
+            return new JsonResult(workingGroup);
+        }
+
         //[Authorize("SomeRoleOrPolicyForAdmins <admins>)"]
         [HttpPost]
         public async Task<ActionResult> PostWorkingGroup([FromBody] WorkingGroup workingGroup)

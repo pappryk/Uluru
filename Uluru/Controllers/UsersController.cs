@@ -158,6 +158,7 @@ namespace Uluru.Controllers
 
             var claims = new List<Claim>()
             {
+                new Claim("Id", user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName),
@@ -171,12 +172,14 @@ namespace Uluru.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProps);
+            var cookieOptions = new CookieOptions() 
+            {
+                Expires = DateTimeOffset.Now.AddDays(1)
+            };
 
-            Response.Cookies.Append("Email", user.Email);
-            Response.Cookies.Append("Id", user.Id.ToString());
+            Response.Cookies.Append("Email", user.Email, cookieOptions);
+            Response.Cookies.Append("Id", user.Id.ToString(), cookieOptions);
 
-
-            //HttpContext.SignInAsync()
             return Ok();
         }
 
@@ -184,7 +187,8 @@ namespace Uluru.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
+            Response.Cookies.Delete("Email");
+            Response.Cookies.Delete("Id");
             return Ok();
         }
     }

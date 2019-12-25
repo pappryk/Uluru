@@ -21,6 +21,7 @@ using Uluru.Data.WorkingGroups;
 using Uluru.Data.WorkingAvailabilities;
 using Uluru.Data.WorkingDays;
 using Uluru.Data.WorkingGroupSchedules;
+using Uluru.Data.WorkEntries;
 
 namespace Uluru
 {
@@ -48,8 +49,8 @@ namespace Uluru
             var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(Options => {
-                //Options.LoginPath = "/login";
-                Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                Options.LoginPath = "/login";
+                Options.ExpireTimeSpan = TimeSpan.FromDays(1);
             });
             services.AddAuthorization(
             
@@ -69,6 +70,7 @@ namespace Uluru
             services.AddScoped<IWorkingGroupScheduleRepository, WorkingGroupScheduleRepository>();
             services.AddScoped<IWorkingAvailabilityRepository, WorkingAvailabilityRepository>();
             services.AddScoped<IWorkingDayRepository, WorkingDayRepository>();
+            services.AddScoped<IWorkEntryRepository, WorkEntryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

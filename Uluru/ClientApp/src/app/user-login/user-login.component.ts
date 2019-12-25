@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { UserService } from '../user/user.service';
+import { DataSharingService } from '../../helpers/datasharing.service';
 
 @Component({
     selector: 'user-login',
@@ -8,16 +9,26 @@ import { UserService } from '../user/user.service';
 export class UserLogin {
   public email: string;
   public password: string;
-  constructor(private _userService: UserService) { }
+  private isUserLoggedIn: boolean;
+
+  constructor(
+    private _userService: UserService,
+    private dataSharingService: DataSharingService
+  ) {
+    this.dataSharingService.isUserLoggedIn.subscribe(value => {
+      this.isUserLoggedIn = value;
+    });
+  }
 
   public async onClick() {
-    let response = await this._userService.authenticateUser(this.email, this.password);
-    if (!response.ok) {
-      alert("Nie udało się zalogować.");
-    }
-    else {
-      console.log(response.body);
+    try {
+      let response = await this._userService.authenticateUser(this.email, this.password);
 
+      this.dataSharingService.isUserLoggedIn.next(true);
+
+    } catch (err) {
+      alert("Cannot log in");
     }
+    
   }
 }

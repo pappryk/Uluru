@@ -1,0 +1,13 @@
+<div class="border-bottom-grey">
+  <p>{{workingGroupSchedule.start | date: "dd.MM.yyyy"}} - {{workingGroupSchedule.end | date: "dd.MM.yyyy"}}</p>
+  <button (click)="showComponent()" *ngIf="!isVisible">Show</button>
+  <button (click)="hideComponent()" *ngIf="isVisible">Hide</button>
+  <div *ngIf="isVisible">
+    <div *ngFor="let workingDay of workingGroupSchedule.workingDays">
+        <p><b>{{workingDay.date | date: "dd.MM.yyyy"}}</b></p>
+        <div *ngFor="let workEntry of workingDay.workEntries">
+            <p>{{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}}</p>
+        </div>
+    </div>
+  </div>
+</div>
