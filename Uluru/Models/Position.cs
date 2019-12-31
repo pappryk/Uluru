@@ -11,6 +11,7 @@ namespace Uluru.Models
         [Key]
         public int Id { get; set; }
         public int WorkingGroupId { get; set; }
+        [Required]
         public string Name { get; set; }
     }
 }
