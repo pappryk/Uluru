@@ -9,6 +9,7 @@ namespace Uluru.DataBaseContext
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<Position> Positions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WorkingGroup> WorkingGroups {get; set;}
         public DbSet<WorkingGroupSchedule> WorkingGroupSchedules { get; set; }
