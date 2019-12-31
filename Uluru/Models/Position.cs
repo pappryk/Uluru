@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace Uluru.Models
 {
-    public class WorkingGroup
+    public class Position
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        public int WorkingGroupId { get; set; }
         public string Name { get; set; }
-        public List<User> Users { get; set; }
-        public List<WorkingGroupSchedule> WorkingGroupSchedules { get; set; }
-        public List<Position> Positions { get; set; }
     }
 }

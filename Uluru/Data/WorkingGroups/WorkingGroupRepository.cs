@@ -33,6 +33,8 @@ namespace Uluru.Data.WorkingGroups
                 .Include(w => w.WorkingGroupSchedules)
                     .ThenInclude(w => w.WorkingDays)
                         .ThenInclude(w => w.WorkEntries)
+                            .ThenInclude(w => w.WorkingAvailability)
+                                .ThenInclude(w => w.User)
                 .Include(w => w.Users)
                 .ToListAsync();
 

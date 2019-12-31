@@ -10,7 +10,7 @@ using Uluru.DataBaseContext;
 namespace Uluru.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191215083245_Initial")]
+    [Migration("20191231013325_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,26 @@ namespace Uluru.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Uluru.Models.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WorkingGroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkingGroupId");
+
+                    b.ToTable("Position");
+                });
 
             modelBuilder.Entity("Uluru.Models.User", b =>
                 {
@@ -49,6 +69,9 @@ namespace Uluru.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserRole")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -59,6 +82,8 @@ namespace Uluru.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Email");
+
+                    b.HasIndex("PositionId");
 
                     b.HasIndex("WorkingGroupId");
 
@@ -75,10 +100,13 @@ namespace Uluru.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("WorkingAvailabilityId")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkingDayId")
@@ -86,7 +114,11 @@ namespace Uluru.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PositionId");
+
+                    b.HasIndex("WorkingAvailabilityId")
+                        .IsUnique()
+                        .HasFilter("[WorkingAvailabilityId] IS NOT NULL");
 
                     b.HasIndex("WorkingDayId");
 
@@ -175,8 +207,21 @@ namespace Uluru.Migrations
                     b.ToTable("WorkingGroupSchedule");
                 });
 
+            modelBuilder.Entity("Uluru.Models.Position", b =>
+                {
+                    b.HasOne("Uluru.Models.WorkingGroup", null)
+                        .WithMany("Positions")
+                        .HasForeignKey("WorkingGroupId");
+                });
+
             modelBuilder.Entity("Uluru.Models.User", b =>
                 {
+                    b.HasOne("Uluru.Models.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Uluru.Models.WorkingGroup", "WorkingGroup")
                         .WithMany("Users")
                         .HasForeignKey("WorkingGroupId")
@@ -186,9 +231,15 @@ namespace Uluru.Migrations
 
             modelBuilder.Entity("Uluru.Models.WorkEntry", b =>
                 {
-                    b.HasOne("Uluru.Models.User", "User")
-                        .WithMany("WorkEntries")
-                        .HasForeignKey("UserId");
+                    b.HasOne("Uluru.Models.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Uluru.Models.WorkingAvailability", "WorkingAvailability")
+                        .WithOne("WorkEntry")
+                        .HasForeignKey("Uluru.Models.WorkEntry", "WorkingAvailabilityId");
 
                     b.HasOne("Uluru.Models.WorkingDay", "WorkingDay")
                         .WithMany("WorkEntries")

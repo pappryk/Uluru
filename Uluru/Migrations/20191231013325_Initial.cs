@@ -21,29 +21,23 @@ namespace Uluru.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Position",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 64, nullable: false),
-                    LastName = table.Column<string>(maxLength: 64, nullable: false),
-                    HourlyWage = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
-                    UserRole = table.Column<string>(nullable: false),
-                    WorkingGroupId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    WorkingGroupId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                    table.UniqueConstraint("AK_User_Email", x => x.Email);
+                    table.PrimaryKey("PK_Position", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_WorkingGroup_WorkingGroupId",
+                        name: "FK_Position_WorkingGroup_WorkingGroupId",
                         column: x => x.WorkingGroupId,
                         principalTable: "WorkingGroup",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,6 +57,59 @@ namespace Uluru.Migrations
                         name: "FK_WorkingGroupSchedule_WorkingGroup_WorkingGroupId",
                         column: x => x.WorkingGroupId,
                         principalTable: "WorkingGroup",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(maxLength: 64, nullable: false),
+                    LastName = table.Column<string>(maxLength: 64, nullable: false),
+                    HourlyWage = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    UserRole = table.Column<string>(nullable: false),
+                    PositionId = table.Column<int>(nullable: false),
+                    WorkingGroupId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.UniqueConstraint("AK_User_Email", x => x.Email);
+                    table.ForeignKey(
+                        name: "FK_User_Position_PositionId",
+                        column: x => x.PositionId,
+                        principalTable: "Position",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_User_WorkingGroup_WorkingGroupId",
+                        column: x => x.WorkingGroupId,
+                        principalTable: "WorkingGroup",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkingDay",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(nullable: false),
+                    WorkingGroupScheduleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkingDay", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkingDay_WorkingGroupSchedule_WorkingGroupScheduleId",
+                        column: x => x.WorkingGroupScheduleId,
+                        principalTable: "WorkingGroupSchedule",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -89,26 +136,6 @@ namespace Uluru.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkingDay",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false),
-                    WorkingGroupScheduleId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkingDay", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkingDay_WorkingGroupSchedule_WorkingGroupScheduleId",
-                        column: x => x.WorkingGroupScheduleId,
-                        principalTable: "WorkingGroupSchedule",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "WorkEntry",
                 columns: table => new
                 {
@@ -117,15 +144,22 @@ namespace Uluru.Migrations
                     Start = table.Column<DateTime>(nullable: false),
                     End = table.Column<DateTime>(nullable: false),
                     WorkingDayId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: true)
+                    WorkingAvailabilityId = table.Column<int>(nullable: true),
+                    PositionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkEntry", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkEntry_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
+                        name: "FK_WorkEntry_Position_PositionId",
+                        column: x => x.PositionId,
+                        principalTable: "Position",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WorkEntry_WorkingAvailability_WorkingAvailabilityId",
+                        column: x => x.WorkingAvailabilityId,
+                        principalTable: "WorkingAvailability",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -137,14 +171,31 @@ namespace Uluru.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Position_WorkingGroupId",
+                table: "Position",
+                column: "WorkingGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_PositionId",
+                table: "User",
+                column: "PositionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_WorkingGroupId",
                 table: "User",
                 column: "WorkingGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEntry_UserId",
+                name: "IX_WorkEntry_PositionId",
                 table: "WorkEntry",
-                column: "UserId");
+                column: "PositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkEntry_WorkingAvailabilityId",
+                table: "WorkEntry",
+                column: "WorkingAvailabilityId",
+                unique: true,
+                filter: "[WorkingAvailabilityId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkEntry_WorkingDayId",
@@ -183,6 +234,9 @@ namespace Uluru.Migrations
 
             migrationBuilder.DropTable(
                 name: "WorkingGroupSchedule");
+
+            migrationBuilder.DropTable(
+                name: "Position");
 
             migrationBuilder.DropTable(
                 name: "WorkingGroup");
