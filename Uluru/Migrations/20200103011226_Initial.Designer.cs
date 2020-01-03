@@ -10,7 +10,7 @@ using Uluru.DataBaseContext;
 namespace Uluru.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191231013325_Initial")]
+    [Migration("20200103011226_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,9 +29,10 @@ namespace Uluru.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WorkingGroupId")
+                    b.Property<int>("WorkingGroupId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -69,7 +70,7 @@ namespace Uluru.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PositionId")
+                    b.Property<int?>("PositionId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserRole")
@@ -211,7 +212,9 @@ namespace Uluru.Migrations
                 {
                     b.HasOne("Uluru.Models.WorkingGroup", null)
                         .WithMany("Positions")
-                        .HasForeignKey("WorkingGroupId");
+                        .HasForeignKey("WorkingGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Uluru.Models.User", b =>
@@ -219,8 +222,7 @@ namespace Uluru.Migrations
                     b.HasOne("Uluru.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Uluru.Models.WorkingGroup", "WorkingGroup")
                         .WithMany("Users")

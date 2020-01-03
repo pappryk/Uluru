@@ -30,7 +30,7 @@ namespace Uluru.Models
         public decimal HourlyWage { get; set; }
         [Required]
         public UserRole UserRole { get; set; }
-        public int PositionId { get; set; }
+        public int? PositionId { get; set; }
         public Position Position { get; set; }
         public int WorkingGroupId { get; set; }
         public WorkingGroup WorkingGroup { get; set; }

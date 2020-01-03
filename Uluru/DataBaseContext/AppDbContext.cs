@@ -32,9 +32,9 @@ namespace Uluru.DataBaseContext
             model.Entity<Position>().ToTable("Position");
 
             model.Entity<User>().HasMany(u => u.WorkingAvailabilities).WithOne(w => w.User);
-            model.Entity<User>().HasOne(u => u.Position).WithMany();
+            model.Entity<User>().HasOne(u => u.Position).WithMany().OnDelete(DeleteBehavior.SetNull);
             model.Entity<WorkingGroup>().HasMany(w => w.Users).WithOne(u => u.WorkingGroup);
-            model.Entity<WorkingGroup>().HasMany(w => w.Positions).WithOne();
+            model.Entity<WorkingGroup>().HasMany(w => w.Positions).WithOne().OnDelete(DeleteBehavior.NoAction);
             model.Entity<WorkingGroupSchedule>().HasOne(w => w.WorkingGroup).WithMany(w => w.WorkingGroupSchedules);
             model.Entity<WorkingGroupSchedule>().HasMany(w => w.WorkingDays).WithOne(w => w.WorkingGroupSchedule);
             model.Entity<WorkingDay>().HasMany(w => w.WorkEntries).WithOne(w => w.WorkingDay);

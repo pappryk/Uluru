@@ -68,7 +68,7 @@ namespace Uluru.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PositionId")
+                    b.Property<int?>("PositionId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserRole")
@@ -211,7 +211,7 @@ namespace Uluru.Migrations
                     b.HasOne("Uluru.Models.WorkingGroup", null)
                         .WithMany("Positions")
                         .HasForeignKey("WorkingGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -220,8 +220,7 @@ namespace Uluru.Migrations
                     b.HasOne("Uluru.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Uluru.Models.WorkingGroup", "WorkingGroup")
                         .WithMany("Users")

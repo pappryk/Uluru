@@ -26,8 +26,8 @@ namespace Uluru.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    WorkingGroupId = table.Column<int>(nullable: true)
+                    WorkingGroupId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,8 +36,7 @@ namespace Uluru.Migrations
                         name: "FK_Position_WorkingGroup_WorkingGroupId",
                         column: x => x.WorkingGroupId,
                         principalTable: "WorkingGroup",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +72,7 @@ namespace Uluru.Migrations
                     LastName = table.Column<string>(maxLength: 64, nullable: false),
                     HourlyWage = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
                     UserRole = table.Column<string>(nullable: false),
-                    PositionId = table.Column<int>(nullable: false),
+                    PositionId = table.Column<int>(nullable: true),
                     WorkingGroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -85,7 +84,7 @@ namespace Uluru.Migrations
                         column: x => x.PositionId,
                         principalTable: "Position",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_User_WorkingGroup_WorkingGroupId",
                         column: x => x.WorkingGroupId,
