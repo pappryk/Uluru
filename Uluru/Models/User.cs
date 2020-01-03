@@ -50,6 +50,7 @@ namespace Uluru.Models
             HourlyWage = dto.HourlyWage;
             UserRole = dto.UserRole;
             WorkingGroupId = dto.WorkingGroupId;
+            PositionId = dto.PositionId;
         }
     }
 

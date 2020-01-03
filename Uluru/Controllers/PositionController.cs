@@ -22,6 +22,7 @@ namespace Uluru.Controllers
         {
             _positionRepository = positionRepository;
             _logger = logger;
+
         }
 
         [HttpGet("{groupId}")]
@@ -29,6 +30,18 @@ namespace Uluru.Controllers
         {
             var workEntries = await _positionRepository.GetAllOfGroupAsync(groupId);
             return new JsonResult(workEntries);
+        }
+
+        [HttpGet("groupsPositions")]
+        public async Task<ActionResult> GetAllOfGroupFromCredentialsAsync()
+        {
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            if (idClaim == null)
+                return Unauthorized();
+
+            int groupId = Int32.Parse(idClaim.Value.ToString());
+            var positions = await _positionRepository.GetAllOfGroupAsync(groupId);
+            return new JsonResult(positions);
         }
 
         [HttpGet("{id}")]

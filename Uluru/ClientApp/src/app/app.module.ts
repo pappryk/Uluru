@@ -14,6 +14,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupComponent } from './group/group.component';
 import { WorkingGroupScheduleComponent } from './working-group-schedule/working-group-schedule.component';
+import { CreateUserAccountComponent } from './create-user-account/create-user-account.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { WorkingGroupScheduleComponent } from './working-group-schedule/working-
     UserAvailabilityListComponent,
     GroupComponent,
     WorkingGroupScheduleComponent,
+    CreateUserAccountComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,6 +40,7 @@ import { WorkingGroupScheduleComponent } from './working-group-schedule/working-
       { path: 'availability', component: UserAvailabilityListComponent },
       { path: 'register', component: RegistrationPageComponent },
       { path: 'group', component: GroupComponent },
+      { path: 'create-user-account', component: CreateUserAccountComponent },
       ], { onSameUrlNavigation: 'reload' }
     )
   ],

@@ -15,6 +15,7 @@ namespace Uluru.Data.Users.DTOs
         public decimal HourlyWage { get; set; }
         public string UserRole { get; set; }
         public int WorkingGroupId { get; set; }
+        public int? PositionId { get; set; }
 
 
         public UserDetailDTO(User user)
@@ -26,6 +27,7 @@ namespace Uluru.Data.Users.DTOs
             HourlyWage = user.HourlyWage;
             UserRole = user.UserRole.ToString();
             WorkingGroupId = user.WorkingGroupId;
+            PositionId = user.PositionId;
         }
     }
 }

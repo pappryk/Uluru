@@ -1,5 +1,8 @@
 <label *ngIf="!workingGroup">Loading</label>
 <div *ngIf="workingGroup">
+  <a class="nav-link text-dark" [routerLink]="['/create-user-account']">
+    Create user
+  </a>
   <h3><b>{{workingGroup.name}}</b></h3>
   <button (click)="toggleNewScheduleForm()" *ngIf="!isNewScheduleFormVisible">Create new schedule</button>
   <button (click)="toggleNewScheduleForm()" *ngIf="isNewScheduleFormVisible">Create new schedule [hide]</button>

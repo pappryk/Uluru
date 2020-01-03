@@ -15,5 +15,6 @@ namespace Uluru.Data.Users.DTOs
         public decimal HourlyWage { get; set; }
         public UserRole UserRole { get; set; }
         public int WorkingGroupId { get; set; }
+        public int? PositionId { get; set; }
     }
 }

@@ -10,10 +10,7 @@
     <input type="text" placeholder="First name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"/>
     <input type="text" placeholder="Last name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"/>
     <input type="password" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"/>
-    <!--<input type="text" placeholder="E-mail" name="email" />
-  <input type="text" placeholder="First name" name="firstName" />
-  <input type="text" placeholder="Last name" name="lastName" />
-  <input type="password" placeholder="Password" name="password" />-->
+    <input type="text" placeholder="Working group name" [(ngModel)]="workingGroupName" [ngModelOptions]="{standalone: true}"/>
     <input type="button" value="Register" (click)="onClick()" />
   </form>
 </body>

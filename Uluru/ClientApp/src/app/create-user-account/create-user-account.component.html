@@ -1,0 +1,11 @@
+<head>
+  <meta charset="utf-8" />
+  <title>Create user account</title>
+</head>
+<body>
+    <input type="text" placeholder="E-mail" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" />
+    <input type="text" placeholder="First name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" />
+    <input type="text" placeholder="Last name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" />
+    <input type="button" value="Create" (click)="onClick()" />
+</body>

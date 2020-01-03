@@ -1,13 +1,11 @@
-export interface IUser {
-    firstName: string;
-    lastName: string;
-    password: string;
-    email: string;
-}
+import { IPosition } from "../../models/position";
 
-//export class User implements IUser {
-//    firstName: string;
-//    lastName: string;
-//    password: string;
-//    email: string;
-//}
+export interface IUser {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  position: IPosition;
+  positionId: number;
+  workingGroupId;
+}
