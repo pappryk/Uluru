@@ -35,6 +35,15 @@ namespace Uluru.Data.Positions
 
             return result;
         }
+        
+        public async Task<IEnumerable<Position>> GetAllOfGroupAsync(int groupId)
+        {
+            var result = await _context
+                .Positions.Where(p => p.WorkingGroupId == groupId)
+                .ToListAsync();
+
+            return result;
+        }
 
         public async Task<Position> GetById(int id)
         {

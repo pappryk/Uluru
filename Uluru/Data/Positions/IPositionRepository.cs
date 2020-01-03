@@ -8,5 +8,6 @@ namespace Uluru.Data.Positions
 {
     public interface IPositionRepository : IRepository<Position>
     {
+        Task<IEnumerable<Position>> GetAllOfGroupAsync(int groupId);
     }
 }
