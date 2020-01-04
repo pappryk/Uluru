@@ -16,6 +16,7 @@ export class CreateUserAccountComponent implements OnInit {
   private password: string;
   private email: string;
   private positions: IPosition[];
+  private selectedPositionId: number;
 
   constructor(
     private http: HttpClient,
@@ -25,13 +26,12 @@ export class CreateUserAccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //let id = this.cookieHelper.getCookie("Id");
     this.http.get<IPosition[]>(this.baseUrl + 'api/position/groupsPositions').subscribe(result => {
       this.positions = result
     }, error => console.error(error));
   }
 
   async onClick() {
-    console.log(this.positions);
+    console.log(this.selectedPositionId);
   }
 }
