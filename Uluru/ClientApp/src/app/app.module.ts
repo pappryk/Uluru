@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupComponent } from './group/group.component';
 import { WorkingGroupScheduleComponent } from './working-group-schedule/working-group-schedule.component';
 import { CreateUserAccountComponent } from './create-user-account/create-user-account.component';
+import { ManageGroupComponent } from './manage-group/manage-group.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CreateUserAccountComponent } from './create-user-account/create-user-ac
     GroupComponent,
     WorkingGroupScheduleComponent,
     CreateUserAccountComponent,
+    ManageGroupComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,6 +43,7 @@ import { CreateUserAccountComponent } from './create-user-account/create-user-ac
       { path: 'register', component: RegistrationPageComponent },
       { path: 'group', component: GroupComponent },
       { path: 'create-user-account', component: CreateUserAccountComponent },
+      { path: 'manage-group', component: ManageGroupComponent },
       ], { onSameUrlNavigation: 'reload' }
     )
   ],
