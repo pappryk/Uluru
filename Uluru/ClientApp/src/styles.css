@@ -18,3 +18,9 @@ code {
 .border-bottom-grey {
   border-bottom: 1px solid grey;
 }
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

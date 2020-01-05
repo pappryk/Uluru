@@ -16,6 +16,8 @@ import { GroupComponent } from './group/group.component';
 import { WorkingGroupScheduleComponent } from './working-group-schedule/working-group-schedule.component';
 import { CreateUserAccountComponent } from './create-user-account/create-user-account.component';
 import { ManageGroupComponent } from './manage-group/manage-group.component';
+import { MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { ManageGroupComponent } from './manage-group/manage-group.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     BrowserAnimationsModule,
+    MatButtonToggleModule,
+    MatSidenavModule,
     RouterModule.forRoot([
       { path: 'availability', component: UserAvailabilityListComponent },
       { path: 'register', component: RegistrationPageComponent },
