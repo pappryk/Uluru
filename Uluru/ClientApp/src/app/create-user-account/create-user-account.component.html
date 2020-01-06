@@ -3,12 +3,27 @@
   <title>Create user account</title>
 </head>
 <body>
-  <input type="text" placeholder="E-mail" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" />
-  <input type="text" placeholder="First name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" />
-  <input type="text" placeholder="Last name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" />
-  <input type="password" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" />
-  <select [(ngModel)]="selectedPositionId">
-    <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
-  </select>
+  <form class="form">
+    <mat-form-field class="field-full-width">
+      <input matInput placeholder="First name" required>
+    </mat-form-field>
+    <mat-form-field class="field-full-width">
+      <input matInput placeholder="Last name" required>
+    </mat-form-field>
+    <mat-form-field class="field-full-width">
+      <input matInput placeholder="Email" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Position</mat-label>
+      <select matNativeControl [(ngModel)]="selectedPositionId" required>
+        <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field class="field-full-width">
+      <input matInput placeholder="Password" required>
+      <mat-hint>Temporary password</mat-hint>
+    </mat-form-field>
+  </form>
+
   <input type="button" value="Create" (click)="onClick()" />
 </body>

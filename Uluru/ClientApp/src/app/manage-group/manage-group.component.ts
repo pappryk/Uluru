@@ -13,4 +13,8 @@ export class ManageGroupComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClick() {
+
+  }
+
 }

@@ -24,3 +24,12 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.field-full-width {
+  width: 80%;
+}

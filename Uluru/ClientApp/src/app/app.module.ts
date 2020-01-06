@@ -17,7 +17,14 @@ import { WorkingGroupScheduleComponent } from './working-group-schedule/working-
 import { CreateUserAccountComponent } from './create-user-account/create-user-account.component';
 import { ManageGroupComponent } from './manage-group/manage-group.component';
 import { MatButtonToggleModule} from '@angular/material/button-toggle';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+
 
 @NgModule({
   declarations: [
@@ -41,7 +48,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     OwlNativeDateTimeModule,
     BrowserAnimationsModule,
     MatButtonToggleModule,
-    MatSidenavModule,
+    MatIconModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([
       { path: 'availability', component: UserAvailabilityListComponent },
       { path: 'register', component: RegistrationPageComponent },

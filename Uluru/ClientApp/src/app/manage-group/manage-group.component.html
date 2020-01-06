@@ -1,5 +1,19 @@
-<mat-button-toggle-group name="" aria-label="Font Style" vertical>
-  <mat-button-toggle value="createUser">Create user</mat-button-toggle>
-  <mat-button-toggle value="workEntries">Work entries</mat-button-toggle>
-  <mat-button-toggle value="scheduleTemplates">Schedule templates</mat-button-toggle>
-</mat-button-toggle-group>
+<mat-grid-list cols="4" rowHeight="600px">
+  <mat-grid-tile [colspan]="1">
+    <mat-button-toggle-group name="" aria-label="Font Style" #group="matButtonToggleGroup" vertical>
+      <mat-button-toggle value="createUser">Create user</mat-button-toggle>
+      <mat-button-toggle value="workEntries">Work entries</mat-button-toggle>
+      <mat-button-toggle value="scheduleTemplates">Schedule templates</mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="3">
+    <app-create-user-account *ngIf="group.value == 'createUser'"></app-create-user-account>
+    <div *ngIf="group.value == 'scheduleTemplates'">
+      Schedule templates!
+    </div>
+    <div *ngIf="group.value == 'workEntries'">
+      Work entries
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
