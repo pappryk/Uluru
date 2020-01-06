@@ -1,8 +1,5 @@
 <label *ngIf="!workingGroup">Loading</label>
 <div *ngIf="workingGroup">
-  <a class="nav-link text-dark" [routerLink]="['/manage-group']">
-    Manage group
-  </a>
   <h3><b>{{workingGroup.name}}</b></h3>
   <mat-tab-group>
     <mat-tab label="Schedules">
@@ -25,8 +22,12 @@
         <app-working-group-schedule [workingGroupSchedule]="schedule"></app-working-group-schedule>
       </div>
     </mat-tab>
-    <mat-tab label="Users">  </mat-tab>
-    <mat-tab label="Manage">  </mat-tab>
+    <mat-tab label="Users">
+      <app-groups-user-list [workingGroup]="workingGroup"></app-groups-user-list>
+    </mat-tab>
+    <mat-tab label="Manage">
+      <app-manage-group [workingGroup]="workingGroup"></app-manage-group>
+    </mat-tab>
   </mat-tab-group>
 
 </div>

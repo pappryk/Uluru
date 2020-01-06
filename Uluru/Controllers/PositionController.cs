@@ -35,7 +35,7 @@ namespace Uluru.Controllers
         [HttpGet("groupsPositions")]
         public async Task<ActionResult> GetAllOfGroupFromCredentialsAsync()
         {
-            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "GroupId");
             if (idClaim == null)
                 return Unauthorized();
 

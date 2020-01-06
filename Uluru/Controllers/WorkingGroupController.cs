@@ -55,7 +55,7 @@ namespace Uluru.Controllers
         [HttpGet("fromcredentials")]
         public async Task<ActionResult> GetByCredentialsId()
         {
-            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "WorkingGroupId");
             if (idClaim == null)
                 return Unauthorized();
 

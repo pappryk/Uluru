@@ -59,6 +59,21 @@ namespace Uluru.Controllers
             return new ActionResult<IEnumerable<UserDetailDTO>>(result);
         }
 
+        [HttpGet("group/fromClaims")]
+        public async Task<ActionResult<IEnumerable<UserDetailDTO>>> GetUsersOfGroupFromClaims()
+        {
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            if (idClaim == null)
+                return Unauthorized();
+
+            int groupId = Int32.Parse(idClaim.Value.ToString());
+
+            var users = await _usersRepository.GetAllUsersOfGroupAsync(groupId);
+            var result = users.Select(u => new UserDetailDTO(u));
+
+            return new ActionResult<IEnumerable<UserDetailDTO>>(result);
+        }
+
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDetailDTO>> GetUser(int id)
@@ -162,6 +177,7 @@ namespace Uluru.Controllers
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim("WorkingGroupId", user.WorkingGroupId.ToString()),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
