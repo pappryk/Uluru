@@ -23,7 +23,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { GroupsUserListComponent } from './groups-user-list/groups-user-list.component';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -39,6 +43,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     WorkingGroupScheduleComponent,
     CreateUserAccountComponent,
     ManageGroupComponent,
+    GroupsUserListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,6 +60,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatListModule,
+    MatTabsModule,
+    MatExpansionModule,
     RouterModule.forRoot([
       { path: 'availability', component: UserAvailabilityListComponent },
       { path: 'register', component: RegistrationPageComponent },

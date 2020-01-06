@@ -4,14 +4,29 @@
     Manage group
   </a>
   <h3><b>{{workingGroup.name}}</b></h3>
-  <button (click)="toggleNewScheduleForm()" *ngIf="!isNewScheduleFormVisible">Create new schedule</button>
-  <button (click)="toggleNewScheduleForm()" *ngIf="isNewScheduleFormVisible">Create new schedule [hide]</button>
-  <div *ngIf="isNewScheduleFormVisible">
-    <owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newScheduleDates" [selectMode]="'range'"></owl-date-time-inline>
-    <button (click)="createNewSchedule()">Submit</button>
-  </div>
-  <h5>Group's schedules:</h5>
-  <div *ngFor="let schedule of workingGroup.workingGroupSchedules">
-    <app-working-group-schedule [workingGroupSchedule]="schedule"></app-working-group-schedule>
-  </div>
+  <mat-tab-group>
+    <mat-tab label="Schedules">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            New schedule
+          </mat-panel-title>
+          <mat-panel-description>
+            Create new schedule
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newScheduleDates" [selectMode]="'range'"></owl-date-time-inline>
+        <button (click)="createNewSchedule()">Submit</button>
+      </mat-expansion-panel>
+
+      <h5>Group's schedules:</h5>
+      <div *ngFor="let schedule of workingGroup.workingGroupSchedules">
+        <app-working-group-schedule [workingGroupSchedule]="schedule"></app-working-group-schedule>
+      </div>
+    </mat-tab>
+    <mat-tab label="Users">  </mat-tab>
+    <mat-tab label="Manage">  </mat-tab>
+  </mat-tab-group>
+
 </div>

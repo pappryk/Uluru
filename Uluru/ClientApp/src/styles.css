@@ -33,3 +33,11 @@ body {
 .field-full-width {
   width: 80%;
 }
+
+/*.mat-tab-labels {
+  flex-direction: column;
+}
+
+.mat-tab-group {
+  flex-direction: row;
+}*/
