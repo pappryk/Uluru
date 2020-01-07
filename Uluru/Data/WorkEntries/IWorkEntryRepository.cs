@@ -8,5 +8,6 @@ namespace Uluru.Data.WorkEntries
 {
     public interface IWorkEntryRepository : IRepository<WorkEntry>
     {
+        Task AddMany(IEnumerable<WorkEntry> workEntries);
     }
 }

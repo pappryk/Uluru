@@ -22,6 +22,12 @@ namespace Uluru.Data.WorkEntries
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddMany(IEnumerable<WorkEntry> workEntries)
+        {
+            _context.WorkEntries.AddRange(workEntries);
+            await _context.SaveChangesAsync();
+        }
+
         public bool Exists(int id)
         {
             var result = _context.WorkEntries.FirstOrDefault(w => w.Id == id);

@@ -31,6 +31,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ManagePositionsComponent } from './manage-positions/manage-positions.component';
 import { ManageWorkingSchedulesComponent } from './manage-working-schedules/manage-working-schedules.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CreateWorkEntryComponent } from './create-work-entry/create-work-entry.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     GroupsUserListComponent,
     ManagePositionsComponent,
     ManageWorkingSchedulesComponent,
+    CreateWorkEntryComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -76,6 +78,9 @@ import { MatDialogModule } from '@angular/material/dialog';
       { path: 'manage-group', component: ManageGroupComponent },
       ], { onSameUrlNavigation: 'reload' }
     )
+  ],
+  entryComponents: [
+    CreateWorkEntryComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

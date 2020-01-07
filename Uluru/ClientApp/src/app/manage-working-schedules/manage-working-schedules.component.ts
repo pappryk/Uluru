@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IWorkingGroup } from '../../models/workingGroup';
 import { MatDialog } from '@angular/material/dialog';
-import { WorkingGroupScheduleComponent } from '../working-group-schedule/working-group-schedule.component';
+import { CreateWorkEntryComponent } from '../create-work-entry/create-work-entry.component';
 
 @Component({
   selector: 'app-manage-working-schedules',
@@ -14,8 +14,14 @@ export class ManageWorkingSchedulesComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
-    //console.log(this.workingGroup.workingGroupSchedules[0].workingGroupId);
-    //this.dialog.open();
   }
 
+  openNewWorkEntryDialog(workingGroupScheduleId: number) {
+    this.dialog.open(CreateWorkEntryComponent, {
+      data: {
+        workingGroup: this.workingGroup,
+        workingGroupScheduleId: workingGroupScheduleId
+      }
+    });
+  }
 }

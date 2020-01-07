@@ -35,6 +35,7 @@ namespace Uluru.Data.WorkingGroups
                             .ThenInclude(w => w.WorkingAvailability)
                                 .ThenInclude(w => w.User)
                 .Include(w => w.Users)
+                .Include(w => w.Positions)
                 .ToListAsync();
 
             return workingGroups;
@@ -45,7 +46,10 @@ namespace Uluru.Data.WorkingGroups
             var workingGroup = await _context.WorkingGroups
                 .Include(w => w.WorkingGroupSchedules)
                     .ThenInclude(w => w.WorkEntries)
+                        .ThenInclude(w => w.WorkingAvailability)
+                            .ThenInclude(w => w.User)
                 .Include(w => w.Users)
+                .Include(w => w.Positions)
                 .FirstOrDefaultAsync(w => w.Id == id);
 
             return workingGroup;

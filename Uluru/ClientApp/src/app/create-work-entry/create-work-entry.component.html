@@ -1,0 +1,20 @@
+<owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newDayDate" #dt1></owl-date-time-inline>
+<div>
+  <label>Start hour</label>
+  <owl-date-time-inline [pickerType]="'timer'" [(ngModel)]="newDayStartTime" #dt2></owl-date-time-inline>
+</div>
+<div>
+  <label>End hour</label>
+  <owl-date-time-inline [pickerType]="'timer'" [(ngModel)]="newDayEndTime" #dt3></owl-date-time-inline>
+</div>
+<mat-form-field>
+  <mat-label>Position</mat-label>
+  <select matNativeControl [(ngModel)]="selectedPositionId" [ngModelOptions]="{standalone: true}" required>
+    <option *ngFor="let position of workingGroup.positions" value="{{position.id}}">{{position.name}}</option>
+  </select>
+</mat-form-field>
+<mat-form-field class="field-full-width">
+  <input matInput type="number" placeholder="Quantity" [(ngModel)]="quantity" min="1" required>
+  <!--<mat-hint>How many such work entries?</mat-hint>-->
+</mat-form-field>
+<button mat-stroked-button (click)="postNewWorkEntries()">Done</button>

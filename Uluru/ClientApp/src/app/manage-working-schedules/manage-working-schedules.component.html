@@ -8,7 +8,7 @@
             {{workingGroupSchedule.start | date: "dd.MM.yyyy"}} - {{workingGroupSchedule.end | date: "dd.MM.yyyy"}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <button>Add work entry</button>
+        <button (click)="openNewWorkEntryDialog(workingGroupSchedule.id)">Add work entry</button>
         <div *ngFor="let workEntry of workingGroupSchedule.workEntries">
           <button mat-icon-button>
             <mat-icon>delete</mat-icon>
