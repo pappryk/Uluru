@@ -41,7 +41,7 @@ namespace Uluru.Controllers
 
         //[Authorize("SomeRoleOrPolicyForAdmins <admins>)"]
         [HttpPost]
-        public async Task<ActionResult> PostWorkingGroupSchedule([FromBody] WorkingDay workingDay)
+        public async Task<ActionResult> PostWorkingDaySchedule([FromBody] WorkingDay workingDay)
         {
             try
             {
