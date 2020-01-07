@@ -142,9 +142,10 @@ namespace Uluru.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Start = table.Column<DateTime>(nullable: false),
                     End = table.Column<DateTime>(nullable: false),
-                    WorkingDayId = table.Column<int>(nullable: false),
+                    WorkingGroupScheduleId = table.Column<int>(nullable: false),
                     WorkingAvailabilityId = table.Column<int>(nullable: true),
-                    PositionId = table.Column<int>(nullable: false)
+                    PositionId = table.Column<int>(nullable: false),
+                    WorkingDayId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -165,6 +166,12 @@ namespace Uluru.Migrations
                         name: "FK_WorkEntry_WorkingDay_WorkingDayId",
                         column: x => x.WorkingDayId,
                         principalTable: "WorkingDay",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WorkEntry_WorkingGroupSchedule_WorkingGroupScheduleId",
+                        column: x => x.WorkingGroupScheduleId,
+                        principalTable: "WorkingGroupSchedule",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -200,6 +207,11 @@ namespace Uluru.Migrations
                 name: "IX_WorkEntry_WorkingDayId",
                 table: "WorkEntry",
                 column: "WorkingDayId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkEntry_WorkingGroupScheduleId",
+                table: "WorkEntry",
+                column: "WorkingGroupScheduleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkingAvailability_UserId",

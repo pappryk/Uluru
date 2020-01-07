@@ -29,7 +29,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ManagePositionsComponent } from './manage-positions/manage-positions.component';
-
+import { ManageWorkingSchedulesComponent } from './manage-working-schedules/manage-working-schedules.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ManagePositionsComponent } from './manage-positions/manage-positions.co
     ManageGroupComponent,
     GroupsUserListComponent,
     ManagePositionsComponent,
+    ManageWorkingSchedulesComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -65,6 +67,7 @@ import { ManagePositionsComponent } from './manage-positions/manage-positions.co
     MatListModule,
     MatTabsModule,
     MatExpansionModule,
+    MatDialogModule,
     RouterModule.forRoot([
       { path: 'availability', component: UserAvailabilityListComponent },
       { path: 'register', component: RegistrationPageComponent },

@@ -10,7 +10,7 @@ using Uluru.DataBaseContext;
 namespace Uluru.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200103011226_Initial")]
+    [Migration("20200107132047_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,10 @@ namespace Uluru.Migrations
                     b.Property<int?>("WorkingAvailabilityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkingDayId")
+                    b.Property<int?>("WorkingDayId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingGroupScheduleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -122,6 +125,8 @@ namespace Uluru.Migrations
                         .HasFilter("[WorkingAvailabilityId] IS NOT NULL");
 
                     b.HasIndex("WorkingDayId");
+
+                    b.HasIndex("WorkingGroupScheduleId");
 
                     b.ToTable("WorkEntry");
                 });
@@ -243,9 +248,13 @@ namespace Uluru.Migrations
                         .WithOne("WorkEntry")
                         .HasForeignKey("Uluru.Models.WorkEntry", "WorkingAvailabilityId");
 
-                    b.HasOne("Uluru.Models.WorkingDay", "WorkingDay")
+                    b.HasOne("Uluru.Models.WorkingDay", null)
                         .WithMany("WorkEntries")
-                        .HasForeignKey("WorkingDayId")
+                        .HasForeignKey("WorkingDayId");
+
+                    b.HasOne("Uluru.Models.WorkingGroupSchedule", "WorkingGroupSchedule")
+                        .WithMany("WorkEntries")
+                        .HasForeignKey("WorkingGroupScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -262,7 +271,7 @@ namespace Uluru.Migrations
             modelBuilder.Entity("Uluru.Models.WorkingDay", b =>
                 {
                     b.HasOne("Uluru.Models.WorkingGroupSchedule", "WorkingGroupSchedule")
-                        .WithMany("WorkingDays")
+                        .WithMany()
                         .HasForeignKey("WorkingGroupScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -14,7 +14,7 @@ namespace Uluru.Models
         public DateTime Start { get; set; }
         [Required]
         public DateTime End { get; set; }
-        public List<WorkingDay> WorkingDays { get; set; }
+        public List<WorkEntry> WorkEntries { get; set; }
         public int WorkingGroupId { get; set; }
         public WorkingGroup WorkingGroup { get; set; }
     }

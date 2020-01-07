@@ -31,8 +31,7 @@ namespace Uluru.Data.WorkingGroupSchedules
         public async Task<IEnumerable<WorkingGroupSchedule>> GetAllAsync()
         {
             var result = await _context.WorkingGroupSchedules
-                .Include(w => w.WorkingDays)
-                    .ThenInclude(w => w.WorkEntries)
+                .Include(w => w.WorkEntries)
                         .ThenInclude(w => w.WorkingAvailability)
                             .ThenInclude(w => w.User)
                 .ToListAsync();
@@ -43,8 +42,7 @@ namespace Uluru.Data.WorkingGroupSchedules
         public async Task<WorkingGroupSchedule> GetById(int id)
         {
             var result = await _context.WorkingGroupSchedules
-                .Include(w => w.WorkingDays)
-                    .ThenInclude(w => w.WorkEntries)
+                .Include(w => w.WorkEntries)
                 .FirstOrDefaultAsync(w => w.Id == id);
 
             return result;

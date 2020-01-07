@@ -3,15 +3,16 @@
   <button (click)="showComponent()" *ngIf="!isVisible">Show</button>
   <button (click)="hideComponent()" *ngIf="isVisible">Hide</button>
   <div *ngIf="isVisible">
-    <div *ngFor="let workingDay of workingGroupSchedule.workingDays">
-      <p><b>{{workingDay.date | date: "dd.MM.yyyy"}}</b></p>
-      <div *ngFor="let workEntry of workingDay.workEntries">
-        <p>{{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}}</p>
+    <!--<div *ngFor="let workingDay of workingGroupSchedule.workingDays">
+      <p><b>{{workingDay.date | date: "dd.MM.yyyy"}}</b></p>-->
+      <div *ngFor="let workEntry of workingGroupSchedule.workEntries">
+        <p>{{workEntry.start | date: "dd.MM.yyy HH:mm"}} - {{workEntry.end | date: "dd.MM.yyy HH:mm"}}</p>
       </div>
-    </div>
+    <!--</div>-->
   </div>
 </div>
-<mat-expansion-panel>
+
+<!--<mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
       <p>{{workingGroupSchedule.start | date: "dd.MM.yyyy"}} - {{workingGroupSchedule.end | date: "dd.MM.yyyy"}}</p>
@@ -24,4 +25,4 @@
       <p>{{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}}</p>
     </div>
   </div>
-</mat-expansion-panel>
+</mat-expansion-panel>-->
