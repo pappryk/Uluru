@@ -28,6 +28,7 @@ import { GroupsUserListComponent } from './groups-user-list/groups-user-list.com
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ManagePositionsComponent } from './manage-positions/manage-positions.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     CreateUserAccountComponent,
     ManageGroupComponent,
     GroupsUserListComponent,
+    ManagePositionsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

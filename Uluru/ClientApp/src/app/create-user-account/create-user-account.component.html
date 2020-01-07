@@ -5,28 +5,28 @@
 <body>
   <form class="form">
     <mat-form-field class="field-full-width">
-      <input matInput placeholder="First name" required>
+      <input matInput placeholder="First name" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" required>
     </mat-form-field>
     <mat-form-field class="field-full-width">
-      <input matInput placeholder="Last name" required>
+      <input matInput placeholder="Last name" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" required>
     </mat-form-field>
     <mat-form-field class="field-full-width">
-      <input matInput placeholder="Email" required>
+      <input matInput placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Position</mat-label>
-      <select matNativeControl [(ngModel)]="selectedPositionId" required>
+      <select matNativeControl [(ngModel)]="selectedPositionId" [ngModelOptions]="{standalone: true}" required>
         <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
       </select>
     </mat-form-field>
     <mat-form-field class="field-full-width">
-      <input type="number" matInput placeholder="Wage">
+      <input type="number" matInput placeholder="Wage" [(ngModel)]="wage" [ngModelOptions]="{standalone: true}" required>
     </mat-form-field>
     <mat-form-field class="field-full-width">
-      <input matInput placeholder="Password" required>
+      <input matInput placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required>
       <mat-hint>Temporary password</mat-hint>
     </mat-form-field>
   </form>
 
-  <input type="button" value="Create" (click)="onClick()" />
+  <button mat-stroked-button (click)="createUser()">Create</button>
 </body>

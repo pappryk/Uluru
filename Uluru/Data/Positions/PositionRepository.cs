@@ -18,6 +18,8 @@ namespace Uluru.Data.Positions
 
         public async Task Add(Position toAdd)
         {
+            if (_context.Positions.FirstOrDefault(p => p.Name == toAdd.Name && p.WorkingGroupId == toAdd.WorkingGroupId) != null)
+                throw new DbUpdateException();
             _context.Positions.Add(toAdd);
             await _context.SaveChangesAsync();
         }

@@ -16,6 +16,8 @@ namespace Uluru.Data.Users.DTOs
         public string UserRole { get; set; }
         public int WorkingGroupId { get; set; }
         public int? PositionId { get; set; }
+        public Position Position { get; set; }
+        public List<WorkingAvailability> WorkingAvailabilities { get; set; }
 
 
         public UserDetailDTO(User user)
@@ -28,6 +30,8 @@ namespace Uluru.Data.Users.DTOs
             UserRole = user.UserRole.ToString();
             WorkingGroupId = user.WorkingGroupId;
             PositionId = user.PositionId;
+            Position = user.Position;
+            WorkingAvailabilities = user.WorkingAvailabilities;
         }
     }
 }

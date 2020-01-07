@@ -42,6 +42,8 @@ namespace Uluru.Data.Users
         {
             var users = await _context.Users
                 .Where(u => u.WorkingGroupId == groupId)
+                .Include(u => u.Position)
+                .Include(u => u.WorkingAvailabilities)
                 .ToListAsync();
             return users;
         }

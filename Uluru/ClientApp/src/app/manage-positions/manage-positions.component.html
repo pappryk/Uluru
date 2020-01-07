@@ -1,0 +1,10 @@
+<mat-form-field class="field-full-width">
+  <input matInput placeholder="Position name" [(ngModel)]="newPositionName" [ngModelOptions]="{standalone: true}" required>
+</mat-form-field>
+<button mat-stroked-button (click)="createPosition()">Create</button>
+
+<mat-list role="list">
+  <div *ngFor="let position of positions">
+    <mat-list-item role="listitem">{{position.name}}</mat-list-item>
+  </div>
+</mat-list>

@@ -25,17 +25,17 @@ namespace Uluru.Controllers
 
         }
 
-        [HttpGet("{groupId}")]
+        [HttpGet("groups/{groupId}")]
         public async Task<ActionResult> GetAllOfGroupAsync(int groupId)
         {
-            var workEntries = await _positionRepository.GetAllOfGroupAsync(groupId);
-            return new JsonResult(workEntries);
+            var positions = await _positionRepository.GetAllOfGroupAsync(groupId);
+            return new JsonResult(positions);
         }
 
-        [HttpGet("groupsPositions")]
+        [HttpGet("groups/fromClaims")]
         public async Task<ActionResult> GetAllOfGroupFromCredentialsAsync()
         {
-            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "GroupId");
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "WorkingGroupId");
             if (idClaim == null)
                 return Unauthorized();
 
@@ -47,11 +47,10 @@ namespace Uluru.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
-            var workEntry = await _positionRepository.GetById(id);
-            return new JsonResult(workEntry);
+            var position = await _positionRepository.GetById(id);
+            return new JsonResult(position);
         }
 
-        //[Authorize("SomeRoleOrPolicyForAdmins <admins>)"]
         [HttpPost]
         public async Task<ActionResult> PostWorkingGroupSchedule([FromBody] Position position)
         {
@@ -67,7 +66,7 @@ namespace Uluru.Controllers
             catch (DbUpdateException e)
             {
                 _logger.LogError(e.Message);
-                return Problem(e.Message);
+                return Conflict(e.Message);
             }
             catch (Exception e)
             {

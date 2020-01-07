@@ -20,5 +20,4 @@ export class GroupsUserListComponent implements OnInit {
   ngOnInit() {
     this.http.get<IUser[]>(this.baseUrl + "api/users/group/" + this.workingGroup.id).subscribe(result => this.users = result);
   }
-
 }
