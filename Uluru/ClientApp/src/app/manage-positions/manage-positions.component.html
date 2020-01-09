@@ -2,8 +2,9 @@
   <input matInput placeholder="Position name" [(ngModel)]="newPositionName" [ngModelOptions]="{standalone: true}" required>
 </mat-form-field>
 <button mat-stroked-button (click)="createPosition()">Create</button>
-
+<br />
 <mat-list role="list">
+  <h3>Positions</h3>
   <div *ngFor="let position of positions">
     <mat-list-item role="listitem">{{position.name}}</mat-list-item>
   </div>
