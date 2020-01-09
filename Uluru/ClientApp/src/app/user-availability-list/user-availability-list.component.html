@@ -1,6 +1,9 @@
-<button (click)="toggleAvailability()" *ngIf="!showAddNewAvailability">Show new availability window</button>
-<div *ngIf="showAddNewAvailability">
-  <button (click)="toggleAvailability()">Hide new availability window</button><br/>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      New availability
+    </mat-panel-title>
+  </mat-expansion-panel-header>
   <owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newDayDate" #dt1></owl-date-time-inline>
   <div>
     <label>Start hour</label>
@@ -10,8 +13,9 @@
     <label>End hour</label>
     <owl-date-time-inline [pickerType]="'timer'" [(ngModel)]="newDayEndTime" #dt3></owl-date-time-inline>
   </div>
-  <button (click)="postNewAvailability()">Add new availability</button>
-</div>
+  <button mat-raised-button (click)="postNewAvailability()">Add new availability</button>
+</mat-expansion-panel>
+
 <br />
 <h4><b>Your availability</b></h4>
 <app-user-availability [availability]='availability' *ngFor="let availability of workingAvailabilities"></app-user-availability>

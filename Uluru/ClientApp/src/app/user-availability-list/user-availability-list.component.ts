@@ -30,6 +30,11 @@ export class UserAvailabilityListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.newDayStartTime.setHours(8);
+    this.newDayEndTime.setHours(16);
+    this.newDayStartTime.setMinutes(0);
+    this.newDayEndTime.setMinutes(0);
+
     let id = this.cookieHelper.getCookie("Id");
     this.http.get<IUserAvailability[]>(this.baseUrl + 'api/workingAvailability?userId=' + id).subscribe(result => {
       this.workingAvailabilities = result;
@@ -58,8 +63,5 @@ export class UserAvailabilityListComponent implements OnInit {
 
     let response = await this.http.post(this.baseUrl + 'api/workingAvailability', data, { observe: 'response' }).toPromise();
   }
-
-
-
 
 }

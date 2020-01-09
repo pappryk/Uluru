@@ -1,7 +1,6 @@
 <div class="availability">
   {{availability.start | date:"yyyy-dd-MM"}} | {{availability.start | date:"HH:mm"}} - {{availability.end | date:"HH:mm"}}
-  <button (click)="editAvailability()">Edit</button>
-  <button (click)="deleteAvailability()">Delete</button>
+  <button mat-icon-button (click)="deleteAvailability()"><mat-icon>delete</mat-icon></button>
 </div>
 <div *ngIf="showEdit">
   <p>Edit</p>
