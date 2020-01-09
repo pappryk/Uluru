@@ -30,13 +30,18 @@
               Your group
             </a>
           </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isAuthenticated">
+            <a class="nav-link text-dark" [routerLink]="['/profile']">
+              Profile
+            </a>
+          </li>
           <li class="nav-item" [routerLinkActive]="['link-active']"*ngIf="!isAuthenticated">
             <a class="nav-link text-dark" [routerLink]="['/register']">
               Register
             </a>
           </li>
           <li>
-            <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+            <button mat-raised-button color="white" *ngIf="isAuthenticated" (click)="logout()">Logout</button>
           </li>
           <li>
             <user-login *ngIf="!isAuthenticated"></user-login>

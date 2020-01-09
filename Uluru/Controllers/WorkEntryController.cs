@@ -42,11 +42,11 @@ namespace Uluru.Controllers
 
         //[Authorize("SomeRoleOrPolicyForAdmins <admins>)"]
         [HttpPost]
-        public async Task<ActionResult> PostWorkingGroupSchedule([FromBody] WorkEntry workEntry)
+        public async Task<ActionResult> PostWorkingGroupSchedule([FromBody] IEnumerable<WorkEntry> workEntries)
         {
             try
             {
-                await _workEntryRepository.Add(workEntry);
+                await _workEntryRepository.AddMany(workEntries);
             }
             catch (DbUpdateConcurrencyException e)
             {
@@ -64,7 +64,23 @@ namespace Uluru.Controllers
                 return Problem(e.Message);
             }
 
-            return CreatedAtAction("PostWorkEntry", new { workEntry.Id, workEntry });
+            return CreatedAtAction("PostWorkEntries", workEntries.Select(w => w.Id).ToList());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            WorkEntry result;
+            try
+            {
+                result = await _workEntryRepository.Remove(id);
+            }
+            catch(DbUpdateException)
+            {
+                return Problem("Cannot remove");
+            }
+
+            return Ok(result);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Uluru.Data.WorkEntries
 
         public async Task AddMany(IEnumerable<WorkEntry> workEntries)
         {
-            _context.WorkEntries.AddRange(workEntries);
+            _context.WorkEntries.AddRange(workEntries); 
             await _context.SaveChangesAsync();
         }
 

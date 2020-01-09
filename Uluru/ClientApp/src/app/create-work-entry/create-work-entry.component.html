@@ -17,4 +17,4 @@
   <input matInput type="number" placeholder="Quantity" [(ngModel)]="quantity" min="1" required>
   <!--<mat-hint>How many such work entries?</mat-hint>-->
 </mat-form-field>
-<button mat-stroked-button (click)="postNewWorkEntries()">Done</button>
+<button mat-stroked-button (click)="postNewWorkEntries()" [mat-dialog-close]="workingGroupScheduleId" cdkFocusInitial>Done</button>

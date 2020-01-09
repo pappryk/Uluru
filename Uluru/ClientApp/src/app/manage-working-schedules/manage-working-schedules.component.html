@@ -1,21 +1,21 @@
 <p>Schedules</p>
-<mat-list role="list">
+<!--<mat-list role="list">-->
   <div *ngFor="let workingGroupSchedule of workingGroup.workingGroupSchedules">
-    <mat-list-item role="listitem">
+    <!--<mat-list-item role="listitem">-->
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{workingGroupSchedule.start | date: "dd.MM.yyyy"}} - {{workingGroupSchedule.end | date: "dd.MM.yyyy"}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <button (click)="openNewWorkEntryDialog(workingGroupSchedule.id)">Add work entry</button>
+        <button mat-raised-button (click)="openNewWorkEntryDialog(workingGroupSchedule.id)">Add work entry</button>
         <div *ngFor="let workEntry of workingGroupSchedule.workEntries">
-          <button mat-icon-button>
+          <button mat-icon-button (click)="deleteWorkEntry(workEntry.id)">
             <mat-icon>delete</mat-icon>
           </button>
           <p>{{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}}</p>
         </div>
       </mat-expansion-panel>
-    </mat-list-item>
+    <!--</mat-list-item>-->
   </div>
-</mat-list>
+<!--</mat-list>-->

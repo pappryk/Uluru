@@ -12,6 +12,7 @@ namespace Uluru.Data.Users
         bool UserWithEmailExists(string email);
         Task<bool> Authenticate(UserAuthenticationDTO userDto);
         Task<User> GetByEmail(string email);
-        Task<IEnumerable<User>> GetAllUsersOfGroupAsync(int groupId);   
+        Task<IEnumerable<User>> GetAllUsersOfGroupAsync(int groupId);
+        Task<User> UpdatePassword(int id, string oldPassword, string newPassword);
     }
 }

@@ -93,14 +93,35 @@ namespace Uluru.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        [HttpPut("changePassword/{id}")]
+        public async Task<IActionResult> PutUser(int id, [FromBody] ChangePasswordDTO dto)
         {
+            try
+            {
+                var user = await _usersRepository.UpdatePassword(id, dto.OldPassword, dto.NewPassword);
+                if (user == null)
+                    return Unauthorized("Bad password");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_usersRepository.Exists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Problem();
+                }
+            }
+            catch (DbUpdateException)
+            {
+                return Problem();
+            }
+
             //if (id != user.Id)
             //{
             //    return BadRequest();
             //}
-
             //_context.Entry(user).State = EntityState.Modified;
 
             //try

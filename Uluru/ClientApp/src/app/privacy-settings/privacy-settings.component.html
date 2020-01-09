@@ -1,0 +1,12 @@
+<mat-grid-list cols="4" rowHeight="600px">
+  <mat-grid-tile [colspan]="1">
+    <mat-button-toggle-group style="min-width: 200px;" name="" aria-label="Font Style" #group="matButtonToggleGroup" vertical>
+      <mat-button-toggle value="changePassword">Change password</mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="3">
+      <app-change-password *ngIf="group.value == 'changePassword'" ></app-change-password>
+
+  </mat-grid-tile>
+</mat-grid-list>

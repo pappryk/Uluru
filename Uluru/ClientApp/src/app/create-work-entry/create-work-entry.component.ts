@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IWorkingGroup } from '../../models/workingGroup';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { IPosition } from '../../models/position';
 
 @Component({
   selector: 'app-create-work-entry',
@@ -22,7 +24,9 @@ export class CreateWorkEntryComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private http: HttpClient,
+    @Inject('BASE_URL') private baseUrl: string 
   ) {
     this.workingGroup = data.workingGroup;
     this.workingGroupScheduleId = data.workingGroupScheduleId;
@@ -41,16 +45,18 @@ export class CreateWorkEntryComponent implements OnInit {
     let entry =  {
       workingGroupScheduleId: this.workingGroupScheduleId,
       start: start,
-      end: end
+      end: end,
+      positionId: this.selectedPositionId,
     }
     
-    let data = [];
+    let entries = [];
 
     for (let i = 0; i < this.quantity; i++) {
-      data.push(entry);
-}
+      entries.push(entry);
+    }
 
-    console.log(data);
-    console.log(this.workingGroup);
+    this.http.post(this.baseUrl + "api/workEntry", entries).subscribe(response => {
+      alert("Successfully added work entry!");
+    }, error => { alert("Cannot add work entry") });
   }
 }

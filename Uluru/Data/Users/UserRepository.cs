@@ -95,5 +95,21 @@ namespace Uluru.Data.Users
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task<User> UpdatePassword(int id, string oldPassword, string newPassword)
+        {
+            var user = await this.GetById(id);
+            string newPasswordHash = newPassword; //hash
+
+            if (user.PasswordHash != oldPassword)
+                return null;
+
+            user.PasswordHash = newPassword; //HASH PASSWORD
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
     }
 }

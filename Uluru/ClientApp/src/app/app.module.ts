@@ -32,6 +32,9 @@ import { ManagePositionsComponent } from './manage-positions/manage-positions.co
 import { ManageWorkingSchedulesComponent } from './manage-working-schedules/manage-working-schedules.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateWorkEntryComponent } from './create-work-entry/create-work-entry.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { CreateWorkEntryComponent } from './create-work-entry/create-work-entry.
     ManagePositionsComponent,
     ManageWorkingSchedulesComponent,
     CreateWorkEntryComponent,
+    ProfileComponent,
+    PrivacySettingsComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -75,7 +81,7 @@ import { CreateWorkEntryComponent } from './create-work-entry/create-work-entry.
       { path: 'register', component: RegistrationPageComponent },
       { path: 'group', component: GroupComponent },
       { path: 'create-user-account', component: CreateUserAccountComponent },
-      { path: 'manage-group', component: ManageGroupComponent },
+      { path: 'profile', component: ProfileComponent },
       ], { onSameUrlNavigation: 'reload' }
     )
   ],
