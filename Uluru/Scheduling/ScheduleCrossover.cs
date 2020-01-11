@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Scheduling;
+using Uluru.Scheduling;
 using GeneticSharp.Domain.Chromosomes;
 using GeneticSharp.Domain.Randomizations;
+using GeneticSharp.Domain.Crossovers;
 
-namespace GeneticSharp.Domain.Crossovers
+namespace Uluru.Scheduling
 {
     [DisplayName("Ordered (OX1)")]
     public sealed class ScheduleCrossover : CrossoverBase

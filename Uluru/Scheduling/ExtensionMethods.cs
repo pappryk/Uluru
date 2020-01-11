@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-namespace Scheduling
+namespace Uluru.Scheduling
 {
     public static class ExtensionMethods
     {
@@ -50,7 +50,19 @@ namespace Scheduling
 
         public static bool IsAvailabilityColision(this IList<GAWorkEntry> workEntries, GAAvailability availability)
         {
-            return workEntries.GetAvailabilities().Contains(availability);
+            if (availability == null)
+                return true;
+
+            var availabilities = workEntries.GetAvailabilities().Where(a => a != null).ToList();
+            if (availabilities.Count > 0)
+            {
+                if (availabilities.FirstOrDefault(a => a.UserId == availability.UserId && a.Date == availability.Date) != null)
+                {
+                    return true;
+                }
+            }
+            //return workEntries.GetAvailabilities().Contains(availability);
+            return false;
         }
 
         public static IEnumerable<GAWorkEntry> GetWorkEntries(this IChromosome chromosome)

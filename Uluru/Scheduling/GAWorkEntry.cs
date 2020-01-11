@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using Uluru.Models;
 
-namespace Scheduling
+namespace Uluru.Scheduling
 {
     [Serializable]
     public class GAWorkEntry
@@ -14,6 +15,16 @@ namespace Scheduling
         public DateTime End { get; set; }
         public DateTime Date => Start.Date;
 
+        public GAWorkEntry()
+        {
+        }
+
+        public GAWorkEntry(WorkEntry workEntry)
+        {
+            Id = workEntry.Id;
+            Start = workEntry.Start;
+            End = workEntry.End;
+        }
         public bool IsSatisfiedBy(GAAvailability availability)
         {
             if (Date == availability.Date && Start >= availability.Start && End <= availability.End)

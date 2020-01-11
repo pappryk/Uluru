@@ -53,7 +53,16 @@ namespace Uluru.Data.WorkingAvailabilities
             return result;
         }
 
-       
+        public async Task<IEnumerable<WorkingAvailability>> GetAllOfGroupAsync(int id)
+        {
+            var result = await _context.WorkingAvailabilities
+                .Include(w => w.User)
+                .Where(w => w.User.WorkingGroupId == id)
+                .ToListAsync();
+
+            return result;
+        }
+
 
         public async Task<WorkingAvailability> Remove(int id)
         {

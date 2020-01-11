@@ -12,11 +12,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Uluru.Data.WorkingAvailabilities;
 using Uluru.Data.WorkingGroups;
 using Uluru.Data.WorkingGroupSchedules;
 using Uluru.DataBaseContext;
 using Uluru.Helpers;
 using Uluru.Models;
+using Uluru.Scheduling;
 
 namespace Uluru.Controllers
 {
@@ -26,13 +28,22 @@ namespace Uluru.Controllers
     public class WorkingGroupScheduleController : ControllerBase
     {
         private readonly IWorkingGroupScheduleRepository _workingGroupScheduleRepository;
+        private readonly IWorkingAvailabilityRepository _workingAvailabilityRepository;
         private readonly ILogger<WorkingGroupController> _logger;
+        private readonly IScheduleGenerator _scheduleGenerator;
+        private readonly AppDbContext _context;
         public WorkingGroupScheduleController(
             ILogger<WorkingGroupController> logger,
-            IWorkingGroupScheduleRepository workingGroupScheduleRepository)
+            IWorkingGroupScheduleRepository workingGroupScheduleRepository,
+            IWorkingAvailabilityRepository workingAvailabilities,
+            IScheduleGenerator scheduleGenerator,
+            AppDbContext context)
         {
             _workingGroupScheduleRepository = workingGroupScheduleRepository;
+            _workingAvailabilityRepository = workingAvailabilities;
             _logger = logger;
+            _scheduleGenerator = scheduleGenerator;
+            _context = context;
         }
 
         [HttpGet]
@@ -75,5 +86,44 @@ namespace Uluru.Controllers
 
             return CreatedAtAction("PostWorkingScheduleGroup", new { workingGroupSchedule.Id, workingGroupSchedule });
         }
+
+       [HttpGet("getGenerated/{scheduleId}")]
+        public async Task<ActionResult> GetGeneratedSchedule(int scheduleId)
+        {
+            var schedule = await _workingGroupScheduleRepository.GetById(scheduleId);
+            var gaWorkEntries = schedule.WorkEntries.Select(w => new GAWorkEntry(w)).ToList();
+            var gaWorkingAvailabilities = (await _workingAvailabilityRepository.GetAllOfGroupAsync(schedule.WorkingGroupId))
+                .Select(w => new GAAvailability(w)).ToList();
+
+            var result = _scheduleGenerator.Generate(gaWorkEntries, gaWorkingAvailabilities)
+                .Select(w => new WorkEntry() { 
+                    Id = w.Id,
+                    WorkingAvailabilityId = w.Availability?.Id
+                })
+                .ToList();
+
+            foreach (var workEntry in result)
+            {
+                var entry = _context.WorkEntries.FirstOrDefault(w => w.Id == workEntry.Id);
+                entry.WorkingAvailabilityId = workEntry.WorkingAvailabilityId;
+                _context.Entry(entry).State = EntityState.Modified;
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateException)
+            {
+                return Problem();
+            }
+            catch (Exception)
+            {
+                return Problem();
+            }
+
+            return new JsonResult(result);
+        }
     }
+
 }

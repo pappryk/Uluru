@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Scheduling
+namespace Uluru.Scheduling
 {
-    class ScheduleGenerator
+    class ScheduleGenerator : IScheduleGenerator
     {
         private List<GAWorkEntry> _workEntries;
         private List<GAAvailability> _availabilities;
@@ -20,6 +20,18 @@ namespace Scheduling
         public ScheduleChromosome BestChromosome => GeneticAlgorithm?.BestChromosome as ScheduleChromosome;
         public ScheduleFitness Fitness { get; set; }
         
+        public IEnumerable<GAWorkEntry> Generate(IList<GAWorkEntry> workEntries, IList<GAAvailability> availabilities)
+        {
+            _workEntries = new List<GAWorkEntry>(workEntries);
+            _availabilities = new List<GAAvailability>(availabilities);
+            Initialize();
+            GeneticAlgorithm.Start();
+
+            return BestChromosome.GetWorkEntries();
+        }
+        public ScheduleGenerator()
+        {
+        }
 
         public ScheduleGenerator(IList<GAWorkEntry> workEntries, IList<GAAvailability> availabilities)
         {

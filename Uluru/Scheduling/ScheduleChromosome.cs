@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
-namespace Scheduling
+namespace Uluru.Scheduling
 {
     public class ScheduleChromosome : ChromosomeBase
     {
