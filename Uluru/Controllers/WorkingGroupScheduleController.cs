@@ -87,7 +87,7 @@ namespace Uluru.Controllers
             return CreatedAtAction("PostWorkingScheduleGroup", new { workingGroupSchedule.Id, workingGroupSchedule });
         }
 
-       [HttpGet("getGenerated/{scheduleId}")]
+       [HttpGet("generate/{scheduleId}")]
         public async Task<ActionResult> GetGeneratedSchedule(int scheduleId)
         {
             var schedule = await _workingGroupScheduleRepository.GetById(scheduleId);
@@ -129,7 +129,7 @@ namespace Uluru.Controllers
                 return Problem();
             }
 
-            return new JsonResult(new List<string>());
+            return Ok();
         }
     }
 

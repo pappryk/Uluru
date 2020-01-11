@@ -35,6 +35,7 @@ import { CreateWorkEntryComponent } from './create-work-entry/create-work-entry.
 import { ProfileComponent } from './profile/profile.component';
 import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditWorkEntryComponent } from './edit-work-entry/edit-work-entry.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ProfileComponent,
     PrivacySettingsComponent,
     ChangePasswordComponent,
+    EditWorkEntryComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -86,7 +88,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     )
   ],
   entryComponents: [
-    CreateWorkEntryComponent
+    CreateWorkEntryComponent,
+    EditWorkEntryComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
