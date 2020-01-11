@@ -36,6 +36,7 @@ namespace Uluru.Scheduling
                     {
                         workEntry.Availability = availability;
                         availabilities.Remove(availability);
+                        availabilities.RemoveAll(a => availability.UserId == a.UserId && a.Date == availability.Date);
                         break;
                     }
                 }

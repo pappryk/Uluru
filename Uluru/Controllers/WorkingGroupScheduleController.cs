@@ -91,23 +91,30 @@ namespace Uluru.Controllers
         public async Task<ActionResult> GetGeneratedSchedule(int scheduleId)
         {
             var schedule = await _workingGroupScheduleRepository.GetById(scheduleId);
-            var gaWorkEntries = schedule.WorkEntries.Select(w => new GAWorkEntry(w)).ToList();
-            var gaWorkingAvailabilities = (await _workingAvailabilityRepository.GetAllOfGroupAsync(schedule.WorkingGroupId))
-                .Select(w => new GAAvailability(w)).ToList();
+            var workEntriesByPositions = schedule.WorkEntries.GroupBy(w => w.PositionId).ToList();
 
-            var result = _scheduleGenerator.Generate(gaWorkEntries, gaWorkingAvailabilities)
-                .Select(w => new WorkEntry() { 
-                    Id = w.Id,
-                    WorkingAvailabilityId = w.Availability?.Id
-                })
-                .ToList();
-
-            foreach (var workEntry in result)
+            foreach (var workEntriesByPosition in workEntriesByPositions)
             {
-                var entry = _context.WorkEntries.FirstOrDefault(w => w.Id == workEntry.Id);
-                entry.WorkingAvailabilityId = workEntry.WorkingAvailabilityId;
-                _context.Entry(entry).State = EntityState.Modified;
+                var gaWorkEntries = workEntriesByPosition.Select(w => new GAWorkEntry(w)).ToList();
+                var gaWorkingAvailabilities = (await _workingAvailabilityRepository.GetAllOfGroupAsync(schedule.WorkingGroupId))
+                    .Where(w => w.User.PositionId == workEntriesByPosition.Key)
+                    .Select(w => new GAAvailability(w)).ToList();
+
+                var result = _scheduleGenerator.Generate(gaWorkEntries, gaWorkingAvailabilities)
+                    .Select(w => new WorkEntry() { 
+                        Id = w.Id,
+                        WorkingAvailabilityId = w.Availability?.Id
+                    })
+                    .ToList();
+
+                foreach (var workEntry in result)
+                {
+                    var entry = _context.WorkEntries.FirstOrDefault(w => w.Id == workEntry.Id);
+                    entry.WorkingAvailabilityId = workEntry.WorkingAvailabilityId;
+                    _context.Entry(entry).State = EntityState.Modified;
+                }
             }
+
 
             try
             {
@@ -122,7 +129,7 @@ namespace Uluru.Controllers
                 return Problem();
             }
 
-            return new JsonResult(result);
+            return new JsonResult(new List<string>());
         }
     }
 

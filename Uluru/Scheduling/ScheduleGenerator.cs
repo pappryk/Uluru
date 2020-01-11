@@ -25,6 +25,9 @@ namespace Uluru.Scheduling
             _workEntries = new List<GAWorkEntry>(workEntries);
             _availabilities = new List<GAAvailability>(availabilities);
             Initialize();
+            if (_workEntries.Count < 3)
+                return GetRandomlyAssigned();
+
             GeneticAlgorithm.Start();
 
             return BestChromosome.GetWorkEntries();
@@ -56,6 +59,31 @@ namespace Uluru.Scheduling
             GeneticAlgorithm.Termination = new GenerationNumberTermination(5);
 
             GeneticAlgorithm.MutationProbability = 0.0f;
+        }
+
+        private IEnumerable<GAWorkEntry> GetRandomlyAssigned()
+        {
+            var workEntries = _workEntries.DeepClone().Shuffled();
+            var availabilities = _availabilities
+                .Except(workEntries.GetAvailabilities(),
+                        new GAAvailabilityEqualityComparer())
+                .ToList().DeepClone().Shuffled();
+
+            foreach (var workEntry in workEntries)
+            {
+                foreach (var availability in availabilities)
+                {
+                    if (workEntry.IsSatisfiedBy(availability))
+                    {
+                        workEntry.Availability = availability;
+                        availabilities.Remove(availability);
+                        availabilities.RemoveAll(a => availability.UserId == a.UserId && a.Date == availability.Date);
+                        break;
+                    }
+                }
+            }
+
+            return workEntries;
         }
 
         public void Run()

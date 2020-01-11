@@ -43,6 +43,8 @@ namespace Uluru.Data.WorkingGroupSchedules
         {
             var result = await _context.WorkingGroupSchedules
                 .Include(w => w.WorkEntries)
+                .Include(w => w.WorkingGroup)
+                    .ThenInclude(w => w.Positions)
                 .FirstOrDefaultAsync(w => w.Id == id);
 
             return result;

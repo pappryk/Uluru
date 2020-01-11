@@ -57,6 +57,7 @@ namespace Uluru.Data.WorkingAvailabilities
         {
             var result = await _context.WorkingAvailabilities
                 .Include(w => w.User)
+                    .ThenInclude(u => u.Position)
                 .Where(w => w.User.WorkingGroupId == id)
                 .ToListAsync();
 
