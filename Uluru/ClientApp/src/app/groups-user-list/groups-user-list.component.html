@@ -1,6 +1,9 @@
 <p>Users</p>
 <mat-list role="list">
   <div *ngFor="let user of users" >
-    <mat-list-item role="listitem">{{user.firstName + " " + user.lastName + " (" + user.email + ") "}} <ng-container *ngIf="user.position">{{" | " + user.position.name}}</ng-container></mat-list-item>
+    <mat-list-item role="listitem">{{user.firstName + " " + user.lastName + " (" + user.email + ") "}}
+      <ng-container *ngIf="user.position">{{" | " + user.position.name}}</ng-container>
+      <ng-container *ngIf="!user.position"><i>No position</i></ng-container>
+    </mat-list-item>
   </div>
 </mat-list>
