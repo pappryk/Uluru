@@ -69,6 +69,8 @@ namespace Uluru.Data.WorkEntries
             var entity = await _context.WorkEntries.FirstOrDefaultAsync(w => w.Id == id);
             entity = newValue;
             _context.WorkEntries.Update(entity);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

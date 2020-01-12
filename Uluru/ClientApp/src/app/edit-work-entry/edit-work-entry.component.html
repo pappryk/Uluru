@@ -10,3 +10,4 @@
     <option *ngFor="let user of workingGroup.users" value="{{user.id}}">{{user.firstName + " " + user.lastName + " (" + user.email + ")"}}</option>
   </select>
 </mat-form-field>
+<button mat-raised-button (click)="updateWorkEntry()">Submit</button>

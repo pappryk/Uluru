@@ -67,6 +67,14 @@ namespace Uluru.Controllers
             return CreatedAtAction("PostWorkEntries", workEntries.Select(w => w.Id).ToList());
         }
 
+        [HttpPut("id")]
+        public async Task<ActionResult> Update([FromRoute] int id, [FromBody] string userId)
+        {
+            var workEntry = await _workEntryRepository.GetById(id);
+
+            return Ok(workEntry);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
