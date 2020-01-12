@@ -8,7 +8,8 @@ import { IUser } from '../user/User';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  private user: IUser[];
+  private user: IUser;
+  private payForSchedules;
 
   constructor(
     private http: HttpClient,
@@ -16,9 +17,22 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get<IUser[]>(this.baseUrl + "api/users/fromClaims").subscribe(result => {
+    this.http.get<IUser>(this.baseUrl + "api/users/fromClaims").subscribe(result => {
       this.user = result;
       console.log(result);
+      this.payForSchedules = [];
+      for (let schedule of this.user.workingGroup.workingGroupSchedules) {
+        schedule.payForUser = 0.0;
+        for (let workEntry of schedule.workEntries) {
+          if (workEntry.userId == this.user.id) {
+            let hours = new Date(workEntry.end).getHours() - new Date(workEntry.start).getHours();
+            let minutes = new Date(workEntry.end).getMinutes() - new Date(workEntry.start).getMinutes();
+            let timeInHours = hours + (minutes / 60);
+            schedule.payForUser = schedule.payForUser + this.user.hourlyWage * timeInHours;
+          }
+        }
+
+      }
     }, error => { console.log(error) });
   }
 

@@ -1,1 +1,5 @@
-<p>user-balance works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let schedule of user.workingGroup.workingGroupSchedules">
+    {{schedule.start | date: "dd.MM.yyyy"}} - {{schedule.end | date: "dd.MM.yyyy"}} | {{schedule.payForUser}}
+  </mat-list-item>
+</mat-list>

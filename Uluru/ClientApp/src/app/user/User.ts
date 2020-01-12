@@ -9,4 +9,5 @@ export interface IUser {
   positionId: number;
   workingGroupId;
   workEntries;
+  workingGroup;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IUser } from '../user/User';
 
 @Component({
   selector: 'app-user-balance',
@@ -6,11 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./user-balance.component.css']
 })
 export class UserBalanceComponent implements OnInit {
-  @Input() user;
+  @Input() user: IUser;
+  payForSchedules;
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
