@@ -17,6 +17,7 @@ namespace Uluru.Data.Users.DTOs
         public int WorkingGroupId { get; set; }
         public int? PositionId { get; set; }
         public Position Position { get; set; }
+        public List<WorkEntry> WorkEntries { get; set; }
         public List<WorkingAvailability> WorkingAvailabilities { get; set; }
 
 
@@ -31,6 +32,7 @@ namespace Uluru.Data.Users.DTOs
             WorkingGroupId = user.WorkingGroupId;
             PositionId = user.PositionId;
             Position = user.Position;
+            WorkEntries = user.WorkEntries;
             WorkingAvailabilities = user.WorkingAvailabilities;
         }
     }

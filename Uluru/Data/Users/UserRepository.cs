@@ -50,7 +50,14 @@ namespace Uluru.Data.Users
 
         public async Task<User> GetById(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(u => u.WorkEntries)
+                .Include(u => u.WorkingGroup)
+                    .ThenInclude(w => w.WorkingGroupSchedules)
+                        .ThenInclude(w => w.WorkEntries)
+                            .ThenInclude(w => w.User)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
             return user;
         }
 

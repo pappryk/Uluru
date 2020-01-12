@@ -8,4 +8,5 @@ export interface IUser {
   position: IPosition;
   positionId: number;
   workingGroupId;
+  workEntries;
 }

@@ -67,12 +67,30 @@ namespace Uluru.Controllers
             return CreatedAtAction("PostWorkEntries", workEntries.Select(w => w.Id).ToList());
         }
 
-        [HttpPut("id")]
-        public async Task<ActionResult> Update([FromRoute] int id, [FromBody] string userId)
+        [HttpPut("user")]
+        public async Task<ActionResult> Update([FromBody] WorkEntry workEntry)
         {
-            var workEntry = await _workEntryRepository.GetById(id);
+            var workEntryToBeChanged = await _workEntryRepository.GetById(workEntry.Id);
+            workEntryToBeChanged.UserId = workEntry.UserId;
 
-            return Ok(workEntry);
+            try
+            {
+                await _workEntryRepository.Update(workEntryToBeChanged.Id, workEntryToBeChanged);
+            }
+            catch (DbUpdateException)
+            {
+                return NotFound(workEntry);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(workEntry);
+            }
+            catch (Exception)
+            {
+                return Problem();
+            }
+
+            return Ok(workEntryToBeChanged);
         }
 
         [HttpDelete("{id}")]

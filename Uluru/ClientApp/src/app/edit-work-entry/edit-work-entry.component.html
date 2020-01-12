@@ -1,9 +1,4 @@
-<!--<mat-form-field class="field-full-width">
-  <mat-label>Position</mat-label>
-  <select matNativeControl [(ngModel)]="selectedPositionId" [ngModelOptions]="{standalone: true}" required>
-    <option *ngFor="let position of workingGroup.positions" value="{{position.id}}">{{position.name}}</option>
-  </select>
-</mat-form-field>-->
+
 <mat-form-field class="field-full-width">
   <mat-label>User</mat-label>
   <select matNativeControl [(ngModel)]="selectedUserId" [ngModelOptions]="{standalone: true}" required>
@@ -11,3 +6,4 @@
   </select>
 </mat-form-field>
 <button mat-raised-button (click)="updateWorkEntry()">Submit</button>
+

@@ -62,7 +62,7 @@ namespace Uluru.Controllers
         [HttpGet("group/fromClaims")]
         public async Task<ActionResult<IEnumerable<UserDetailDTO>>> GetUsersOfGroupFromClaims()
         {
-            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "GroupId");
             if (idClaim == null)
                 return Unauthorized();
 
@@ -90,9 +90,27 @@ namespace Uluru.Controllers
             return result;
         }
 
-        // PUT: api/Users/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpGet("fromClaims")]
+        public async Task<ActionResult<UserDetailDTO>> GetUserFromClaims()
+        {
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id");
+            if (idClaim == null)
+                return Unauthorized();
+
+            int id = Int32.Parse(idClaim.Value.ToString());
+
+            var user = await _usersRepository.GetById(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = new UserDetailDTO(user);
+
+            return result;
+        }
+
         [HttpPut("changePassword/{id}")]
         public async Task<IActionResult> PutUser(int id, [FromBody] ChangePasswordDTO dto)
         {

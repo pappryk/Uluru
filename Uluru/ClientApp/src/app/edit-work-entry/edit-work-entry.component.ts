@@ -31,9 +31,9 @@ export class EditWorkEntryComponent implements OnInit {
       return;
 
     let requestBody = {
-      userId: this.selectedUserId
+      id: this.workEntryId,
+      userId: this.selectedUserId,
     }
-
     this.http.put(this.baseUrl + "api/workEntry/user", requestBody).subscribe(response => {
 
     }, error => { console.log(error) });
