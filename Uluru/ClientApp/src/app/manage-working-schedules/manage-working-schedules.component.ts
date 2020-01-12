@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ManageWorkingSchedulesComponent implements OnInit {
   @Input() workingGroup: IWorkingGroup;
-  private workEntriesGrouped;
+  private workingSchedulesGrouped;
 
   constructor(
     private dialog: MatDialog,
@@ -27,12 +27,7 @@ export class ManageWorkingSchedulesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //let groupedByPositions = this.workingGroup.workingGroupSchedules[0].workEntries.reduce((r, workEntry) => {
-    //  r[workEntry.position.name] = [...r[workEntry.position.name] || [], workEntry];
-    //  return r;
-    //}, {});
-    //console.log("by positions", groupedByPositions);
-    this.workEntriesGrouped = this.getWorkEntriesGroupedByDate();
+    this.generateGroupedWorkEntriesProperty();
   }
 
   openNewWorkEntryDialog(workingGroupScheduleId: number) {
@@ -81,26 +76,28 @@ export class ManageWorkingSchedulesComponent implements OnInit {
     }, error => { alert("Error while generating schedule") });
   }
 
-  private getWorkEntriesGroupedByDate() {
-    let groupedByDate = this.workingGroup.workingGroupSchedules[0].workEntries.reduce((r, workEntry) => {
+  private generateGroupedWorkEntriesProperty() {
+    let schedules = [];
 
-      let day = this.datePipe.transform(workEntry.start, "dd.MM.yyyy");
+    for (let schedule of this.workingGroup.workingGroupSchedules) {
 
-      r[day] = [...r[day] || [], workEntry];
-      return r;
-    }, {});
-    console.log("by date", groupedByDate);
+      let groupedByDate = schedule.workEntries.reduce((r, workEntry) => {
+        let day = this.datePipe.transform(workEntry.start, "dd.MM.yyyy");
 
-    let toReturn = [];
+        r[day] = [...r[day] || [], workEntry];
+        return r;
+      }, {});
 
-    for (let index in groupedByDate) {
-      toReturn.push({
-        date: index,
-        value: groupedByDate[index]
-      })
+      let workEntriesGrouped = [];
+
+      for (let index in groupedByDate) {
+        workEntriesGrouped.push({
+          date: index,
+          value: groupedByDate[index]
+        })
+      }
+      schedule.workEntriesGrouped = workEntriesGrouped;
+      schedules.push(workEntriesGrouped);
     }
-
-
-    return toReturn;
   }
 }

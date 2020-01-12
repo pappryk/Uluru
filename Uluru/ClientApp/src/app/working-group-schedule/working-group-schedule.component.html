@@ -5,7 +5,14 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <div *ngFor="let workEntry of workingGroupSchedule.workEntries">
-    <p>{{workEntry.start | date: "dd.MM.yyy HH:mm"}} - {{workEntry.end | date: "dd.MM.yyy HH:mm"}}</p>
-  </div>
+  <mat-list>
+    <div *ngFor="let group of workEntriesGrouped" style="width: 500px;" class="border-bottom-grey">
+      <h3 mat-subheader>{{group.date}}</h3>
+      <div *ngFor="let workEntry of group.value" style="width: 500px;">
+        {{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}} | {{workEntry.position.name}} |
+        <ng-container *ngIf="workEntry.workingAvailability">{{workEntry.workingAvailability.user.firstName + " " + workEntry.workingAvailability.user.lastName}}</ng-container>
+        <ng-container *ngIf="!workEntry.workingAvailability"><i>No assignee</i></ng-container>
+      </div>
+    </div>
+  </mat-list>
 </mat-expansion-panel>

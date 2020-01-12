@@ -8,9 +8,9 @@
     </mat-expansion-panel-header>
     <button mat-raised-button (click)="openNewWorkEntryDialog(workingGroupSchedule.id)">Add work entry</button>
     <button mat-raised-button (click)="generateWorkingGroupSchedule(workingGroupSchedule.id)">Generate</button>
-    <mat-list>
 
-      <div *ngFor="let group of workEntriesGrouped" style="width: 500px;" class="border-bottom-grey">
+    <mat-list>
+      <div *ngFor="let group of workingGroupSchedule.workEntriesGrouped" style="width: 500px;" class="border-bottom-grey">
         <h3 mat-subheader>{{group.date}}</h3> 
         <div *ngFor="let workEntry of group.value" style="width: 500px;">
           {{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}} | {{workEntry.position.name}} |
