@@ -25,7 +25,7 @@
         <h3 mat-subheader>{{group.date}}</h3>
         <div *ngFor="let workEntry of group.value" style="width: 500px;">
           {{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}} | {{workEntry.position.name}} |
-          <ng-container *ngIf="workEntry.workingAvailability">{{workEntry.workingAvailability.user.firstName + " " + workEntry.workingAvailability.user.lastName}}</ng-container>
+          <ng-container *ngIf="workEntry.workingAvailability">{{workEntry.workingAvailability.user.firstName + " " + workEntry.workingAvailability.user.lastName + " (" + workEntry.workingAvailability.user.email + ")"}}</ng-container>
           <ng-container *ngIf="!workEntry.workingAvailability"><i>No assignee</i></ng-container>
           <button mat-icon-button (click)="openEditWorkEntryDialog(workEntry.id)">
             <mat-icon>edit</mat-icon>
