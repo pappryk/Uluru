@@ -1,4 +1,5 @@
 <mat-list>
+  <h4>Pay for schedule</h4>
   <mat-list-item *ngFor="let schedule of user.workingGroup.workingGroupSchedules">
     {{schedule.start | date: "dd.MM.yyyy"}} - {{schedule.end | date: "dd.MM.yyyy"}} | {{schedule.payForUser}}
   </mat-list-item>
