@@ -28,29 +28,4 @@ export class GroupComponent implements OnInit {
     }, error => console.error(error));
 
   }
-
-  toggleNewScheduleForm() {
-    this.isNewScheduleFormVisible = !this.isNewScheduleFormVisible;
-  }
-
-  async createNewSchedule() {
-    if (this.newScheduleDates === undefined || this.newScheduleDates.includes(null)) {
-      alert("Please, choose dates!");
-      console.log(this.newScheduleDates);
-      return;
-    }
-
-    let data = {
-      workingGroupId: this.workingGroup.id,
-      start: this.newScheduleDates[0],
-      end: this.newScheduleDates[1]
-    }
-
-    try {
-      let response = this.http.post(this.baseUrl + 'api/workingGroupSchedule', data).toPromise();
-    }
-    catch (err) {
-      alert("Cannot create a new schedule!");
-    }
-  }
 }

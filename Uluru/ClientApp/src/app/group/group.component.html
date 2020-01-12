@@ -3,19 +3,6 @@
   <h3><b>{{workingGroup.name}}</b></h3>
   <mat-tab-group>
     <mat-tab label="Schedules">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            New schedule
-          </mat-panel-title>
-          <mat-panel-description>
-            Create new schedule
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newScheduleDates" [selectMode]="'range'"></owl-date-time-inline>
-        <button (click)="createNewSchedule()">Submit</button>
-      </mat-expansion-panel>
 
       <h5>Group's schedules:</h5>
       <div *ngFor="let schedule of workingGroup.workingGroupSchedules">

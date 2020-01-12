@@ -1,3 +1,14 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      New schedule
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <owl-date-time-inline [pickerType]="'calendar'" [(ngModel)]="newScheduleDates" [selectMode]="'range'"></owl-date-time-inline>
+  <button mat-raised-button (click)="createNewSchedule()">Submit</button>
+</mat-expansion-panel>
+
 <h3>Schedules</h3>
 <div *ngFor="let workingGroupSchedule of workingGroup.workingGroupSchedules" style="width: 500px;">
   <mat-expansion-panel>
@@ -11,7 +22,7 @@
 
     <mat-list>
       <div *ngFor="let group of workingGroupSchedule.workEntriesGrouped" style="width: 500px;" class="border-bottom-grey">
-        <h3 mat-subheader>{{group.date}}</h3> 
+        <h3 mat-subheader>{{group.date}}</h3>
         <div *ngFor="let workEntry of group.value" style="width: 500px;">
           {{workEntry.start | date: "HH:mm"}} - {{workEntry.end | date: "HH:mm"}} | {{workEntry.position.name}} |
           <ng-container *ngIf="workEntry.workingAvailability">{{workEntry.workingAvailability.user.firstName + " " + workEntry.workingAvailability.user.lastName}}</ng-container>
