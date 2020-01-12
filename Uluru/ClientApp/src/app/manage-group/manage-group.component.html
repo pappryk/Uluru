@@ -1,9 +1,10 @@
-<mat-grid-list cols="4" rowHeight="600px">
+<mat-grid-list *ngIf="workingGroup" cols="4" rowHeight="600px">
   <mat-grid-tile [colspan]="1">
     <mat-button-toggle-group style="min-width: 200px;" name="" aria-label="Font Style" #group="matButtonToggleGroup" vertical>
       <mat-button-toggle value="createUser">Create user</mat-button-toggle>
       <mat-button-toggle value="workingSchedules">Schedules</mat-button-toggle>
       <mat-button-toggle value="managePositions">Positions</mat-button-toggle>
+      <mat-button-toggle value="groupBalance">Group balance</mat-button-toggle>
     </mat-button-toggle-group>
   </mat-grid-tile>
 
@@ -15,5 +16,9 @@
     <div *ngIf="group.value == 'workingSchedules'">
       <app-manage-working-schedules [workingGroup]="workingGroup"></app-manage-working-schedules>
     </div>
+    <div *ngIf="group.value == 'groupBalance'">
+      <app-group-balance [workingGroup]="workingGroup"></app-group-balance>
+    </div>
   </mat-grid-tile>
 </mat-grid-list>
+<div *ngIf="!workingGroup">Loading...</div>

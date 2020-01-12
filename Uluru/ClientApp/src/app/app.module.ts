@@ -37,6 +37,7 @@ import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.co
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditWorkEntryComponent } from './edit-work-entry/edit-work-entry.component';
 import { UserBalanceComponent } from './user-balance/user-balance.component';
+import { GroupBalanceComponent } from './group-balance/group-balance.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { UserBalanceComponent } from './user-balance/user-balance.component';
     ChangePasswordComponent,
     EditWorkEntryComponent,
     UserBalanceComponent,
+    GroupBalanceComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,0 +1,18 @@
+<div *ngIf="workingGroup">
+  <mat-expansion-panel *ngFor="let schedule of workingGroup.workingGroupSchedules">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{schedule.start | date: "dd.MM.yyyy"}} - {{schedule.end | date: "dd.MM.yyyy"}}
+      </mat-panel-title>
+      <mat-panel-description>
+        ${{schedule.overallCost}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngFor="let cost of schedule.costPerUser">
+        {{cost.user.firstName + " " + cost.user.lastName + " (" + cost.user.email + ")"}} | ${{cost.cost}}
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</div>
+<div *ngIf="!workingGroup">Loading...</div>

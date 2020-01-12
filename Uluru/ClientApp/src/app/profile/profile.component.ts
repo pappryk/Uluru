@@ -19,8 +19,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.http.get<IUser>(this.baseUrl + "api/users/fromClaims").subscribe(result => {
       this.user = result;
-      console.log(result);
-      this.payForSchedules = [];
       for (let schedule of this.user.workingGroup.workingGroupSchedules) {
         schedule.payForUser = 0.0;
         for (let workEntry of schedule.workEntries) {
