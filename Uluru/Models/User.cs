@@ -35,6 +35,7 @@ namespace Uluru.Models
         public int WorkingGroupId { get; set; }
         public WorkingGroup WorkingGroup { get; set; }
 
+        public List<WorkEntry> WorkEntries { get; set; }
         public List<WorkingAvailability> WorkingAvailabilities { get; set; }
 
         public User()

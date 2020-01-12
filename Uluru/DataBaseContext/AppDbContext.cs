@@ -41,6 +41,7 @@ namespace Uluru.DataBaseContext
             model.Entity<WorkingAvailability>().HasOne(w => w.WorkEntry).WithOne(w => w.WorkingAvailability)
                 .HasForeignKey<WorkEntry>(w => w.WorkingAvailabilityId);
             model.Entity<WorkEntry>().HasOne(w => w.Position).WithMany();
+            model.Entity<WorkEntry>().HasOne(w => w.User).WithMany(u => u.WorkEntries);
 
             model.Entity<User>()
                 .Property(u => u.UserRole)

@@ -100,17 +100,19 @@ namespace Uluru.Controllers
                     .Where(w => w.User.PositionId == workEntriesByPosition.Key)
                     .Select(w => new GAAvailability(w)).ToList();
 
-                var result = _scheduleGenerator.Generate(gaWorkEntries, gaWorkingAvailabilities)
+                var generatedWorkEntries = _scheduleGenerator.Generate(gaWorkEntries, gaWorkingAvailabilities)
                     .Select(w => new WorkEntry() { 
                         Id = w.Id,
-                        WorkingAvailabilityId = w.Availability?.Id
+                        WorkingAvailabilityId = w.Availability?.Id,
+                        UserId = w.Availability?.UserId
                     })
                     .ToList();
 
-                foreach (var workEntry in result)
+                foreach (var generatedWorkEntry in generatedWorkEntries)
                 {
-                    var entry = _context.WorkEntries.FirstOrDefault(w => w.Id == workEntry.Id);
-                    entry.WorkingAvailabilityId = workEntry.WorkingAvailabilityId;
+                    var entry = _context.WorkEntries.FirstOrDefault(w => w.Id == generatedWorkEntry.Id);
+                    entry.WorkingAvailabilityId = generatedWorkEntry.WorkingAvailabilityId;
+                    entry.UserId = generatedWorkEntry.UserId;
                     _context.Entry(entry).State = EntityState.Modified;
                 }
             }
