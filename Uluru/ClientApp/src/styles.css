@@ -34,6 +34,13 @@ body {
   width: 80%;
 }
 
+.materialInput {
+  padding: 10px 10px 10px 5px;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid #757575;
+  margin: 2px;
+}
 /*.mat-tab-labels {
   flex-direction: column;
 }

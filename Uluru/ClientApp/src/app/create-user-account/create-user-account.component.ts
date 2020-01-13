@@ -20,6 +20,8 @@ export class CreateUserAccountComponent implements OnInit {
   private positions: IPosition[];
   private wage: number;
   private password: string;
+  private selectedUserRole: string = "User";
+
 
   constructor(
     private http: HttpClient,
@@ -43,6 +45,7 @@ export class CreateUserAccountComponent implements OnInit {
       hourlyWage: this.wage,
       workingGroupId: this.workingGroup.id,
       password: this.password,
+      userRole: this.selectedUserRole,
     }
     this.http.post(this.baseUrl + 'api/users', data).subscribe(result => {
       alert("Created user succesfully");

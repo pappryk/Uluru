@@ -19,6 +19,13 @@
         <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
       </select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>User role</mat-label>
+      <select matNativeControl [(ngModel)]="selectedUserRole" [ngModelOptions]="{standalone: true}" required>
+        <option value="{{'User'}}">{{'Regular user'}}</option>
+        <option value="{{'GroupAdmin'}}">{{'Group administrator'}}</option>
+      </select>
+    </mat-form-field>
     <mat-form-field class="field-full-width">
       <input type="number" matInput placeholder="Wage" [(ngModel)]="wage" [ngModelOptions]="{standalone: true}" required>
     </mat-form-field>
