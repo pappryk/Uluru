@@ -46,6 +46,7 @@ export class RegistrationPageComponent {
       workingGroupId: workingGroupResponse.id,
       positionId: null,
       position: null,
+      userRole: "GroupAdmin",
     }
 
     let response: Observable<IUser> = this.userService.postUser(baseUrl + 'api/users', user);

@@ -12,6 +12,7 @@ export class GroupComponent implements OnInit {
   private workingGroup: IWorkingGroup;
   private isNewScheduleFormVisible: boolean = false;
   private newScheduleDates;
+  private userRole: string;
 
   constructor(
     private http: HttpClient,
@@ -23,6 +24,8 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {
     let id = this.cookieHelper.getCookie("Id");
+    this.userRole = this.cookieHelper.getCookie("UserRole");
+    
     this.http.get<IWorkingGroup>(this.baseUrl + 'api/workingGroup/fromcredentials').subscribe(result => {
       this.workingGroup = result;
     }, error => console.error(error));

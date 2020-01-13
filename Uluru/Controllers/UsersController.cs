@@ -167,7 +167,6 @@ namespace Uluru.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(UserRegistrationDTO dto)
         {
-            dto.UserRole = UserRole.User;
             User user = new User(dto);
 
             if (_usersRepository.UserWithEmailExists(user.Email))
@@ -234,6 +233,7 @@ namespace Uluru.Controllers
 
             Response.Cookies.Append("Email", user.Email, cookieOptions);
             Response.Cookies.Append("Id", user.Id.ToString(), cookieOptions);
+            Response.Cookies.Append("UserRole", user.UserRole.ToString(), cookieOptions);
 
             return Ok();
         }
