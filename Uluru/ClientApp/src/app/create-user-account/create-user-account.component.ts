@@ -13,14 +13,14 @@ import { IUser } from '../user/User';
 })
 export class CreateUserAccountComponent implements OnInit {
   @Input() workingGroup: IWorkingGroup;
-  private firstName: string;
-  private lastName: string;
-  private email: string;
-  private selectedPositionId: number;
-  private positions: IPosition[];
-  private wage: number;
-  private password: string;
-  private selectedUserRole: string = "User";
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public selectedPositionId: number;
+  public positions: IPosition[];
+  public wage: number;
+  public password: string;
+  public selectedUserRole: string = "User";
 
 
   constructor(

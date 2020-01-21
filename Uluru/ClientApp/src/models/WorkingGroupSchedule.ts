@@ -5,4 +5,7 @@ export interface IWorkingGroupSchedule {
   workEntries;
   workingGroupId;
   workingGroup;
+  costPerUser;
+  overallCost;
+  workEntriesGrouped;
 }

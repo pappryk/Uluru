@@ -9,7 +9,7 @@ import { IWorkingGroup } from '../../models/workingGroup';
   styleUrls: ['./groups-user-list.component.css']
 })
 export class GroupsUserListComponent implements OnInit {
-  private users: IUser[];
+  public users: IUser[];
   @Input() workingGroup: IWorkingGroup;
 
   constructor(

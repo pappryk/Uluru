@@ -9,10 +9,10 @@ import { CookieHelper } from '../../helpers/cookie.helper';
   styleUrls: ['./group.component.css']
 })
 export class GroupComponent implements OnInit {
-  private workingGroup: IWorkingGroup;
-  private isNewScheduleFormVisible: boolean = false;
-  private newScheduleDates;
-  private userRole: string;
+  public workingGroup: IWorkingGroup;
+  public isNewScheduleFormVisible: boolean = false;
+  public newScheduleDates;
+  public userRole: string;
 
   constructor(
     private http: HttpClient,

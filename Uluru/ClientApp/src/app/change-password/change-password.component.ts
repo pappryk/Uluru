@@ -9,9 +9,10 @@ import { CookieHelper } from '../../helpers/cookie.helper';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-  private oldPassword: string;
-  private newPassword: string;
-  private repeatNewPassword: string;
+  public oldPassword: string;
+  public newPassword: string;
+  public repeatNewPassword: string;
+  public showError;
 
   constructor(
     private http: HttpClient,

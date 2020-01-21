@@ -63,21 +63,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\helpers\datasharing.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\position.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\workingDay.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\workingGroup.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\registration-page\registration-page.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\user-availability\UserAvailability.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\user-login\user-login.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\user\user.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\user\user.ts" />
-    <TypeScriptCompile Include="ClientApp\src\helpers\cookie.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\models\WorkingGroupSchedule.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Scheduling\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
@@ -94,7 +79,7 @@
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
     <!-- Include the newly-built files in the publish output -->
@@ -109,17 +94,17 @@
     </ItemGroup>
   </Target>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+  <PropertyGroup>
     <TypeScriptTarget>ES2015</TypeScriptTarget>
     <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
     <TypeScriptModuleKind>ES6</TypeScriptModuleKind>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptOutFile />
     <TypeScriptOutDir />
     <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
-    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
     <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptMapRoot />
     <TypeScriptSourceRoot />

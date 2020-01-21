@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 export class WorkingGroupScheduleComponent implements OnInit {
   @Input() public workingGroupSchedule: IWorkingGroupSchedule;
-  private workEntriesGrouped;
+  public workEntriesGrouped;
 
   constructor(
     private datePipe: DatePipe,

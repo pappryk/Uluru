@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { DataSharingService } from '../../helpers/datasharing.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'user-login',
@@ -13,7 +14,8 @@ export class UserLogin {
 
   constructor(
     private _userService: UserService,
-    private dataSharingService: DataSharingService
+    private dataSharingService: DataSharingService,
+    private router: Router
   ) {
     this.dataSharingService.isUserLoggedIn.subscribe(value => {
       this.isUserLoggedIn = value;
@@ -25,7 +27,9 @@ export class UserLogin {
       let response = await this._userService.authenticateUser(this.email, this.password);
 
       this.dataSharingService.isUserLoggedIn.next(true);
-
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/']);
+      }); 
     } catch (err) {
       alert("Cannot log in");
     }

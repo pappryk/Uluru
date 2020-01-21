@@ -16,5 +16,6 @@ namespace Uluru.Data.Users.DTOs
         public UserRole UserRole { get; set; }
         public int WorkingGroupId { get; set; }
         public int? PositionId { get; set; }
+
     }
 }

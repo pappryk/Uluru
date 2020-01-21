@@ -16,8 +16,8 @@ import { DatePipe } from '@angular/common';
 })
 export class ManageWorkingSchedulesComponent implements OnInit {
   @Input() workingGroup: IWorkingGroup;
-  private workingSchedulesGrouped;
-  private newScheduleDates;
+  public workingSchedulesGrouped;
+  public newScheduleDates;
 
 
   constructor(

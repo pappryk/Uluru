@@ -7,5 +7,6 @@ export interface IWorkingGroup {
   name: string;
   workingGroupSchedules: IWorkingGroupSchedule[];
   users: IUser[];
-  positions: IPosition[]
+  positions: IPosition[];
+
 }

@@ -1,6 +1,7 @@
 import { IPosition } from "../../models/position";
 
 export interface IUser {
+  id;
   firstName: string;
   lastName: string;
   password: string;
@@ -10,4 +11,6 @@ export interface IUser {
   workingGroupId;
   workEntries;
   workingGroup;
+  userRole;
+  hourlyWage;
 }

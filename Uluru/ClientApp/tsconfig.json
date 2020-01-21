@@ -1,21 +1,34 @@
 {
   "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "module": "esnext",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+
+    "compilerOptions": {
+      "outDir": "./dist/out-tsc",
+      "module": "commonjs",
+      "target": "es5",
+      "lib": [ "es5", "es6", "es7", "es2017", "dom" ],
+      "sourceMap": true,
+      "allowJs": false,
+      "jsx": "react",
+      "moduleResolution": "node",
+      "rootDirs": [ "src", "stories" ],
+      "baseUrl": "src",
+      "forceConsistentCasingInFileNames": false,
+      "noImplicitReturns": false,
+      "noImplicitThis": false,
+      "noImplicitAny": false,
+      "strictNullChecks": false,
+      "suppressImplicitAnyIndexErrors": false,
+      "noUnusedLocals": false,
+      "declaration": false,
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "esModuleInterop": true,
+      "noEmitOnError": false
+    },
     "lib": [
       "es2017",
       "dom"
     ]
   }
-}
+

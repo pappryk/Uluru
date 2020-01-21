@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Uluru.Data.Users.DTOs;
 
 namespace Uluru.Models
@@ -34,7 +31,6 @@ namespace Uluru.Models
         public Position Position { get; set; }
         public int WorkingGroupId { get; set; }
         public WorkingGroup WorkingGroup { get; set; }
-
         public List<WorkEntry> WorkEntries { get; set; }
         public List<WorkingAvailability> WorkingAvailabilities { get; set; }
 

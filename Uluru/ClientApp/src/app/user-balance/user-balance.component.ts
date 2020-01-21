@@ -8,7 +8,7 @@ import { IUser } from '../user/User';
 })
 export class UserBalanceComponent implements OnInit {
   @Input() user: IUser;
-  payForSchedules;
+  public payForSchedules;
 
   constructor() { }
 

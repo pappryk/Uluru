@@ -10,9 +10,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditWorkEntryComponent implements OnInit {
   @Input() workingGroup: IWorkingGroup;
-  private selectedPositionId: number;
-  private selectedUserId: number;
-  private workEntryId: number;
+  public selectedPositionId: number;
+  public selectedUserId: number;
+  public workEntryId: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,

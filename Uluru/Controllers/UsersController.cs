@@ -244,6 +244,8 @@ namespace Uluru.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             Response.Cookies.Delete("Email");
             Response.Cookies.Delete("Id");
+            Response.Cookies.Delete("WorkingGroupId");
+            Response.Cookies.Delete("UserRole");
             return Ok();
         }
     }

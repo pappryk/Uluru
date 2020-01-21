@@ -10,8 +10,8 @@ import { IWorkingGroup } from '../../models/workingGroup';
 })
 export class ManagePositionsComponent implements OnInit {
   @Input() workingGroup: IWorkingGroup;
-  private positions: IPosition[];
-  private newPositionName: string;
+  public positions: IPosition[];
+  public newPositionName: string;
 
   constructor(
     private http: HttpClient,

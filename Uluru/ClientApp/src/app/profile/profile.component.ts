@@ -8,8 +8,8 @@ import { IUser } from '../user/User';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  private user: IUser;
-  private payForSchedules;
+  public user: IUser;
+  public payForSchedules;
 
   constructor(
     private http: HttpClient,

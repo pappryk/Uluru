@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserAvailabilityComponent implements OnInit {
   @Input() @Output() public availability: IUserAvailability;
-  private showEdit: boolean = false;
+  public showEdit: boolean = false;
 
   constructor(
     @Inject('BASE_URL') private baseUrl: string,

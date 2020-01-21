@@ -12,11 +12,11 @@ import { DatePipe } from '@angular/common';
   providers:[DatePipe]
 })
 export class UserAvailabilityListComponent implements OnInit {
-  private workingAvailabilities: IUserAvailability[];
-  private minimalDate = new Date();
-  private newDayDate: Date = new Date();
-  private newDayStartTime: Date = new Date();
-  private newDayEndTime: Date = new Date();
+  public workingAvailabilities: IUserAvailability[];
+  public minimalDate = new Date();
+  public newDayDate: Date = new Date();
+  public newDayStartTime: Date = new Date();
+  public newDayEndTime: Date = new Date();
   @Input() private showAddNewAvailability: boolean = false;
 
 
@@ -50,8 +50,8 @@ export class UserAvailabilityListComponent implements OnInit {
     let day = this.datePipe.transform(this.newDayDate, "yyyy-MM-dd");
     let startHour = this.datePipe.transform(this.newDayStartTime, "HH:mm");
     let endHour = this.datePipe.transform(this.newDayEndTime, "HH:mm");
-    let start = new Date(day + "T" + startHour + ":00");
-    let end = new Date(day + "T" + endHour + ":00");
+    let start = new Date(day + "T" + startHour + ":00-0000");
+    let end = new Date(day + "T" + endHour + ":00-0000");
     let userId = this.cookieHelper.getCookie("Id");
 
     let data = {

@@ -13,14 +13,12 @@ import { IPosition } from '../../models/position';
 })
 export class CreateWorkEntryComponent implements OnInit {
   @Input() workingGroup: IWorkingGroup;
-  private workingGroupScheduleId;
-
-  private selectedPositionId: number;
-
-  private newDayDate: Date = new Date();
-  private newDayStartTime: Date = new Date();
-  private newDayEndTime: Date = new Date();
-  private quantity: number = 1;
+  public workingGroupScheduleId;
+  public selectedPositionId: number;
+  public newDayDate: Date = new Date();
+  public newDayStartTime: Date = new Date();
+  public newDayEndTime: Date = new Date();
+  public quantity: number = 1;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
@@ -33,14 +31,30 @@ export class CreateWorkEntryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.newDayStartTime.setHours(8);
+    this.newDayEndTime.setHours(16);
+    this.newDayStartTime.setMinutes(0);
+    this.newDayEndTime.setMinutes(0);
   }
 
   postNewWorkEntries() {
     let day = this.datePipe.transform(this.newDayDate, "yyyy-MM-dd");
     let startHour = this.datePipe.transform(this.newDayStartTime, "HH:mm");
     let endHour = this.datePipe.transform(this.newDayEndTime, "HH:mm");
-    let start = new Date(day + "T" + startHour + ":00");
-    let end = new Date(day + "T" + endHour + ":00");
+    let start = new Date(day + "T" + startHour + ":00-0000");
+    let end = new Date(day + "T" + endHour + ":00-0000");
+
+    let schedule = this.workingGroup.workingGroupSchedules.find(w => w.id == this.workingGroupScheduleId);
+
+    if (new Date(schedule.start) > start || new Date(schedule.end) < end) {
+      alert("Date out of schedule's time frames!");
+      return;
+    } 
+
+    if (this.selectedPositionId === null || this.selectedPositionId === undefined) {
+      alert("Choose position!");
+      return;
+    }
 
     let entry =  {
       workingGroupScheduleId: this.workingGroupScheduleId,

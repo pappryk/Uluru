@@ -64,7 +64,7 @@ namespace Uluru
             });
             
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("localhost")));
+                options.UseSqlServer(Configuration.GetConnectionString("azure")));
 
             // Register custom DI services
             services.AddScoped<IUserRepository, UserRepository>();
